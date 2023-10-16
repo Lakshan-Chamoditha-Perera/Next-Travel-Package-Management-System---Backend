@@ -19,7 +19,7 @@ public class UserDto {
     private String contact_number;
     private String remark;
     private String password;
-    private Enum<Role> role;
+    private String role;
     private byte[] nic_front;
     private byte[] nic_back;
 }

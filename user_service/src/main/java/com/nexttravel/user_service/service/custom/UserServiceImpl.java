@@ -8,13 +8,14 @@ import com.nexttravel.user_service.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-   private ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @Override
     public Boolean existsUserByUsername(String username) {
@@ -23,10 +24,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String getNewUserID() {
-        User lastUserId = userRepository.findLastUserId();
-        if (lastUserId == null) return "U00001";
-        String lastId = lastUserId.getUser_id();
+//        System.out.println("get new user id");
+        List<User> lastInsertedUser = userRepository.findLastInsertedUser();
+//        System.out.println(lastInsertedUser);
+        if (lastInsertedUser.isEmpty()) return "U00001";
+//        System.out.println("last user id: " + lastInsertedUser.get(0).getUser_id());
+        String lastId = lastInsertedUser.get(0).getUser_id();
         String[] split = lastId.split("[U]");
+//        System.out.println("split: " + split[1]);
         int lastDigits = Integer.parseInt(split[1]);
         lastDigits++;
         return (String.format("U%05d", lastDigits));
@@ -47,6 +52,7 @@ public class UserServiceImpl implements UserService {
         user.setRole(userDto.getRole());
         user.setNic_front(userDto.getNic_front());
         user.setNic_back(userDto.getNic_back());
+
         userRepository.save(user);
         return true;
     }

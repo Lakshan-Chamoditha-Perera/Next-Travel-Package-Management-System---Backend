@@ -1,9 +1,18 @@
 package com.nexttravel.user_service.entity;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
 public enum Role {
-    ADMIN,
-    USER,
-    VEHICLE_ADMIN
+
+    ADMIN("admin"),
+    USER("user"),
+    VEHICLE_ADMIN("vehicle_admin");
+
+    private final String string_val;
+
+    Role(String string_val) {
+        this.string_val = string_val;
+    }
+
+    public String getString() {
+        return this.string_val;
+    }
 }
