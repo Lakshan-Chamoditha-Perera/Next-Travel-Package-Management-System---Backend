@@ -10,18 +10,31 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private ModelMapper modelMapper;
+
     @Override
     public Boolean existsUserByUsername(String username) {
         return userRepository.existsUserByUsername(username);
     }
+
     @Override
-    public Boolean deleteByUsername(String username) {return userRepository.deleteUserByUsername(username);}
+    public Boolean deleteByUsername(String username) {
+        return userRepository.deleteUserByUsername(username);
+    }
+
+    @Override
+    public List<UserDto> getAllUsersList() {
+        List<User> usersList = userRepository.getAll();
+        if (usersList.isEmpty()) return null;
+        return usersList.stream().map(user -> modelMapper.map(user, UserDto.class)).collect(Collectors.toList());
+    }
+
     @Override
     public String getOngoingUserID() {
 //        System.out.println("get new user id");

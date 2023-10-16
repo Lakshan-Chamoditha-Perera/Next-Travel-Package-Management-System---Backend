@@ -9,12 +9,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends CrudRepository<User,String> {
+public interface UserRepository extends CrudRepository<User, String> {
     Optional<User> findUserByUsername(String name);
+
     Boolean existsUserByUsername(String username);
+
     Boolean existsByEmail(String email);
+
     @Query(value = "{}", sort = "{user_id : -1}", fields = "{user_id : 1}")
     List<User> findLastInsertedUser();
 
     Boolean deleteUserByUsername(String username);
+    List<User> getAll();
 }
