@@ -7,9 +7,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Service_Dispatcher" />
+        <module name="vehicle_service" />
         <module name="guide_service" />
         <module name="user_service" />
+        <module name="Service_Dispatcher" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -24,6 +25,7 @@
       <module name="Service_Dispatcher" options="-parameters" />
       <module name="guide_service" options="-parameters" />
       <module name="user_service" options="-parameters" />
+      <module name="vehicle_service" options="-parameters" />
     </option>
   </component>
 </project>
