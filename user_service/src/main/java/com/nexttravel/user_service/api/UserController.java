@@ -1,7 +1,6 @@
 package com.nexttravel.user_service.api;
 
 import com.nexttravel.user_service.dto.UserDto;
-import com.nexttravel.user_service.entity.Role;
 import com.nexttravel.user_service.payload.exceptions.UserValidationException;
 import com.nexttravel.user_service.payload.responses.MessageResponse;
 import com.nexttravel.user_service.service.UserService;
@@ -40,7 +39,7 @@ public class UserController {
        if(existsUserByUsername) return ResponseEntity.badRequest().body(
                 new MessageResponse("Username already exists",null));
 
-       userDto.setUser_id(userService.getNewUserID());
+       userDto.setUser_id(userService.getOngoingUserID());
 
         return userService.save(userDto) ? ResponseEntity.ok().body(
                 new MessageResponse("User registration successful",null)):ResponseEntity.badRequest().body(
@@ -98,4 +97,13 @@ if (!Pattern.compile("^U\\d{3,}$").matcher(userDTO.getUser_id()).matches())
                 new MessageResponse("Username already exists",null)
         );
     }
+
+    @GetMapping("/getnewid")
+    public ResponseEntity<?>getOngoingUserID(){
+        String newUserID = userService.getOngoingUserID();
+        return ResponseEntity.ok(new MessageResponse(newUserID,null));
+    }
+
+
+
 }

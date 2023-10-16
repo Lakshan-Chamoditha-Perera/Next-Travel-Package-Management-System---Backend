@@ -4,6 +4,6 @@ import com.nexttravel.user_service.dto.UserDto;
 
 public interface UserService {
     Boolean existsUserByUsername(String username);
-    String getNewUserID();
+    String getOngoingUserID();
     Boolean save (UserDto userDto);
 }

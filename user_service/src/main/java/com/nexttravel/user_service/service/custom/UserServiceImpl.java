@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String getNewUserID() {
+    public String getOngoingUserID() {
 //        System.out.println("get new user id");
         List<User> lastInsertedUser = userRepository.findLastInsertedUser();
 //        System.out.println(lastInsertedUser);
@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean save(UserDto userDto) throws RuntimeException {
         User user = new User();
+
         user.setUser_id(userDto.getUser_id());
         user.setUsername(userDto.getUsername());
         user.setNic_no(userDto.getNic_no());
