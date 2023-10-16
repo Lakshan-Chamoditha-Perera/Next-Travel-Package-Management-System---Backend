@@ -6,4 +6,5 @@ public interface UserService {
     Boolean existsUserByUsername(String username);
     String getOngoingUserID();
     Boolean save (UserDto userDto);
+    Boolean deleteByUsername (String username);
 }

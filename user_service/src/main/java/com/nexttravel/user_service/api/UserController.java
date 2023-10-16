@@ -104,6 +104,17 @@ if (!Pattern.compile("^U\\d{3,}$").matcher(userDTO.getUser_id()).matches())
         return ResponseEntity.ok(new MessageResponse(newUserID,null));
     }
 
+    public ResponseEntity<?> deleteUserByUsername(String username){
+        if (!Pattern.compile("^U\\d{3,}$").matcher(username).matches()) throw new UserValidationException("Invalid username type!");
+        Boolean existsUserByUsername = userService.existsUserByUsername(username);
+        if(existsUserByUsername){
+            return userService.deleteByUsername(username)
+                    ? ResponseEntity.ok().body(new MessageResponse("User deleted successfully",null))
+                    :   ResponseEntity.ok().body(new MessageResponse("User deletion failed",null)
+            );
+        }
+        return ResponseEntity.badRequest().body(new MessageResponse("User not found",null));
+    }
 
 
 }

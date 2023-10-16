@@ -16,12 +16,12 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private ModelMapper modelMapper;
-
     @Override
     public Boolean existsUserByUsername(String username) {
         return userRepository.existsUserByUsername(username);
     }
-
+    @Override
+    public Boolean deleteByUsername(String username) {return userRepository.deleteUserByUsername(username);}
     @Override
     public String getOngoingUserID() {
 //        System.out.println("get new user id");

@@ -16,6 +16,5 @@ public interface UserRepository extends CrudRepository<User,String> {
     @Query(value = "{}", sort = "{user_id : -1}", fields = "{user_id : 1}")
     List<User> findLastInsertedUser();
 
-//    @Query(value = "{}" ,sort = "{ 'createdTime': -1 }", fields = "{user_id : 1}")
-//    User findLastSavedUser();
+    Boolean deleteUserByUsername(String username);
 }
