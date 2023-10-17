@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 @RestController
@@ -46,5 +47,12 @@ public class VehicleController {
     @PostMapping
     void post() {
         System.out.println("post");
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<?> getAll(){
+        List<VehicleDto> allVehicles = vehicleService.getAllVehicles();
+        if (allVehicles.size()==0)return ResponseEntity.badRequest().body("No vehicles found");
+        return ResponseEntity.ok().body(allVehicles);
     }
 }
