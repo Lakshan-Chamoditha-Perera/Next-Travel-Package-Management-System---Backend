@@ -44,15 +44,22 @@ public class VehicleController {
         }
     }
 
-    @PostMapping
-    void post() {
-        System.out.println("post");
-    }
-
     @GetMapping("/getAll")
     public ResponseEntity<?> getAll(){
         List<VehicleDto> allVehicles = vehicleService.getAllVehicles();
         if (allVehicles.size()==0)return ResponseEntity.badRequest().body("No vehicles found");
         return ResponseEntity.ok().body(allVehicles);
+    }
+
+    @GetMapping("/getAll")
+    public VehicleService existsByVehicleId() {
+        return vehicleService;
+    }
+
+    @GetMapping("/check/{vehicle_id}")
+    public ResponseEntity<?> existsByVehicleId(@PathVariable String vehicle_id) {
+        Boolean isExists = vehicleService.existsVehicleByVehicleId(vehicle_id);
+        if (isExists) return ResponseEntity.ok(true);
+        return ResponseEntity.badRequest().body(false);
     }
 }
