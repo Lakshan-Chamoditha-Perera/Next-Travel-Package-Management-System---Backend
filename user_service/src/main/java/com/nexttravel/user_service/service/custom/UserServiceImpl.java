@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean existsUserByUsername(String username) {
+
         return userRepository.existsUserByUsername(username);
     }
 

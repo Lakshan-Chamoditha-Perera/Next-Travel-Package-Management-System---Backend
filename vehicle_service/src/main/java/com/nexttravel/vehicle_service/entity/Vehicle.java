@@ -31,6 +31,6 @@ public class Vehicle {
     @Column(name = "image", columnDefinition = "BLOB")
     private List<Byte[]> imageList = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     private Driver driver;
 }
