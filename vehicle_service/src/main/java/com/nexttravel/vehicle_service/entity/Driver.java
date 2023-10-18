@@ -7,6 +7,7 @@ import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @AllArgsConstructor
@@ -22,5 +23,6 @@ public class Driver {
     @Lob
     private byte[] licenseBack;
     @OneToOne(mappedBy = "driver")
+    @ToString.Exclude
     private Vehicle vehicle;
 }

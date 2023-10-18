@@ -16,6 +16,7 @@ public class DriverController {
             @RequestPart("license_front") byte[] vehicle_img2,
             @RequestPart("driver") DriverDto driver){
         System.out.println(driver);
+
         return ResponseEntity.ok().build();
     }
 }

@@ -1,10 +1,8 @@
 package com.nexttravel.vehicle_service.controller;
 
 import com.nexttravel.vehicle_service.dto.VehicleDto;
-import com.nexttravel.vehicle_service.entity.Vehicle;
 import com.nexttravel.vehicle_service.service.VehicleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +26,9 @@ public class VehicleController {
             @RequestPart("vehicle_img4") byte[] vehicle_img4,
             @RequestPart("vehicle_img5") byte[] vehicle_img5,
             @RequestPart("vehicle") VehicleDto vehicleDto) {
-        System.out.println(vehicleDto);
+        System.out.println("VehicleController -> "+vehicleDto);
+
+
         return ResponseEntity.ok().build();
     }
 
@@ -46,20 +46,34 @@ public class VehicleController {
 
     @GetMapping("/getAll")
     public ResponseEntity<?> getAll(){
+        System.out.println("Vehicle Controller -> getAll");
         List<VehicleDto> allVehicles = vehicleService.getAllVehicles();
-        if (allVehicles.size()==0)return ResponseEntity.badRequest().body("No vehicles found");
+        System.out.println(allVehicles.size());
+        if (allVehicles.size()==0)return ResponseEntity.ok().body("No vehicles found");
+        System.out.println("done");
         return ResponseEntity.ok().body(allVehicles);
+
     }
 
-    @GetMapping("/getAll")
-    public VehicleService existsByVehicleId() {
-        return vehicleService;
-    }
 
     @GetMapping("/check/{vehicle_id}")
     public ResponseEntity<?> existsByVehicleId(@PathVariable String vehicle_id) {
         Boolean isExists = vehicleService.existsVehicleByVehicleId(vehicle_id);
         if (isExists) return ResponseEntity.ok(true);
         return ResponseEntity.badRequest().body(false);
+    }
+
+    @GetMapping("/get")
+    public ResponseEntity<?> getVehicleByVehicleID(@RequestHeader String vehicle_id) {
+        Boolean isExists = vehicleService.existsVehicleByVehicleId(vehicle_id);
+        if (!isExists) return ResponseEntity.ok("Vehcile not found !");
+        VehicleDto vehicleDto = vehicleService.getVehicleByVehicleId(vehicle_id);
+        return ResponseEntity.ok(vehicleDto);
+    }
+
+    @GetMapping("/get/lastId")
+    public ResponseEntity<?> getOngoingUserID() {
+        String lastVehicleId = vehicleService.getOngoingUserID();
+        return ResponseEntity.ok(lastVehicleId);
     }
 }

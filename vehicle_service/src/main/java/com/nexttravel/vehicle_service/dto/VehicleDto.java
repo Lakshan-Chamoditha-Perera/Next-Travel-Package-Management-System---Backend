@@ -25,4 +25,6 @@ public class VehicleDto {
     private String remark;
     private List<Byte[]> imageList = new ArrayList<>();
     private DriverDto driver;
+    private Double fee_per_day;
+    private Double fee_per_km;
 }
