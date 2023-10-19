@@ -6,14 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 @EnableJpaRepositories
 public interface VehicleRepository extends JpaRepository<Vehicle, String> {
-    Boolean existsVehicleByVehicleId(String vehicle_id);
-    Vehicle getVehicleByVehicleId(String vehicle_id);
+    Boolean existsVehicleById(String vehicle_id);
+    Vehicle getVehicleById(String vehicle_id);
 
-    @Query("SELECT MAX(vehicleId) FROM Vehicle")
+    @Query("SELECT MAX (v.id) FROM Vehicle v")
     String findLastVehicleId();
 }
