@@ -55,5 +55,31 @@ public class DriverController {
         System.out.println("Driver validated");
     }
 
+    @GetMapping("/get/lastId")
+    public ResponseEntity<?> getOngoingUserID() {
+        String lastVehicleId = driverService.getOngoingId();
+        return ResponseEntity.ok(lastVehicleId);
+    }
 
+    @PatchMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> patch(
+            @RequestPart("license_back") byte[] vehicle_img1,
+            @RequestPart("license_front") byte[] vehicle_img2,
+            @RequestPart("driver") DriverDto driver) {
+        System.out.println("Driver Patch -> " + driver);
+        driver.setLicense_back(vehicle_img1);
+        driver.setLicense_front(vehicle_img2);
+        try {
+            validateDriverDetails(driver);
+            System.out.println("validated");
+            if (driverService.existsDriverByDriverId(driver.getId())) {
+                driverService.save(driver);
+                return ResponseEntity.ok().build();
+            }
+            return ResponseEntity.badRequest().body("Driver not found");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
+    }
 }

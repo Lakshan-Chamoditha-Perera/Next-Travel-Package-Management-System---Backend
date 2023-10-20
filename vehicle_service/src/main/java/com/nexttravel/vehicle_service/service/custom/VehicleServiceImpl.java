@@ -49,9 +49,9 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public Boolean save(VehicleDto vehicleDto) {
-        System.out.println("VehicleServiceImpl -> save");
+//        System.out.println("VehicleServiceImpl -> save");
         Vehicle map = modelMapper.map(vehicleDto, Vehicle.class);
-        System.out.println("Vehicle mapped");
+//        System.out.println("Vehicle mapped");
         vehicleRepository.save(map);
         return true;
     }
@@ -94,14 +94,14 @@ public class VehicleServiceImpl implements VehicleService {
         driverDto.setLicense_back(driver.getLicense_back());
         driverDto.setLicense_front(driver.getLicense_front());
         vehicleDto.setDriver(driverDto);
-        System.out.println(vehicleDto);
+//        System.out.println(vehicleDto);
         return vehicleDto;
     }
 
     @Override
     public String getOngoingUserID() {
         String lastVehicleId = vehicleRepository.findLastVehicleId();
-        System.out.println("last ongoing vehicle -> " + lastVehicleId);
+//        System.out.println("last ongoing vehicle -> " + lastVehicleId);
 //        System.out.println(lastInsertedUser);
         if (lastVehicleId==null) return "V00001";
         String[] split = lastVehicleId.split("[V]");

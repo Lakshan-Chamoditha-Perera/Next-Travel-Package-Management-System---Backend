@@ -30,12 +30,12 @@ public class VehicleController {
         vehicleDto.getImageList().add(vehicle_img4);
         vehicleDto.getImageList().add(vehicle_img5);
         try {
-            System.out.println("try in");
-            System.out.println(vehicleDto);
+//            System.out.println("try in");
+//            System.out.println(vehicleDto);
             validateVehicleDetails(vehicleDto);
             System.out.println("validated");
             if (vehicleService.existsVehicleByVehicleId(vehicleDto.getId())) {
-                System.out.println("exists");
+//                System.out.println("exists");
                 return ResponseEntity.badRequest().body("Vehicle already exists");
             }
             vehicleDto.setDriver(driverService.findDriverById(driver_id));
@@ -108,8 +108,9 @@ public class VehicleController {
 
     @GetMapping("/get")
     public ResponseEntity<?> getVehicleByVehicleID(@RequestHeader String vehicle_id) {
+        System.out.println("VehicleController -> getVehicleByVehicleID: " + vehicle_id);
         Boolean isExists = vehicleService.existsVehicleByVehicleId(vehicle_id);
-        if (!isExists) return ResponseEntity.ok("Vehicle not found !");
+        if (!isExists) return ResponseEntity.badRequest().body("Vehicle not found !");
         VehicleDto vehicleDto = vehicleService.getVehicleByVehicleId(vehicle_id);
         return ResponseEntity.ok(vehicleDto);
     }
@@ -119,4 +120,38 @@ public class VehicleController {
         String lastVehicleId = vehicleService.getOngoingUserID();
         return ResponseEntity.ok(lastVehicleId);
     }
+
+    @PatchMapping(value = "/update" , consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> updateVehicle(
+            @RequestPart("vehicle_img1") byte[] vehicle_img1,
+            @RequestPart("vehicle_img2") byte[] vehicle_img2,
+            @RequestPart("vehicle_img3") byte[] vehicle_img3,
+            @RequestPart("vehicle_img4") byte[] vehicle_img4,
+            @RequestPart("vehicle_img5") byte[] vehicle_img5,
+            @RequestPart("vehicle") VehicleDto vehicleDto,
+            @RequestPart("driver_id") String driver_id) {
+        System.out.println("Patch -> " + vehicleDto);
+        vehicleDto.getImageList().add(vehicle_img1);
+        vehicleDto.getImageList().add(vehicle_img2);
+        vehicleDto.getImageList().add(vehicle_img3);
+        vehicleDto.getImageList().add(vehicle_img4);
+        vehicleDto.getImageList().add(vehicle_img5);
+        try {
+            validateVehicleDetails(vehicleDto);
+//            System.out.println("validated");
+            if (vehicleService.existsVehicleByVehicleId(vehicleDto.getId())) {
+//                System.out.println("exists");
+                vehicleDto.setDriver(driverService.findDriverById(driver_id));
+                vehicleService.save(vehicleDto);
+                return ResponseEntity.ok().build();
+            }
+            return ResponseEntity.badRequest().body("Vehicle not exists");
+
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
+    }
+
 }

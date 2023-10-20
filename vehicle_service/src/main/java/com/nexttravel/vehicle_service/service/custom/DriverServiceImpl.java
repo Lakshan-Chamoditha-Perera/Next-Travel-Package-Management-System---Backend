@@ -16,22 +16,21 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public Boolean save(DriverDto driver) {
-        System.out.println("DriverServiceImpl -> save");
-
+//        System.out.println("DriverServiceImpl -> save");
         Driver mapped = modelMapper.map(driver, Driver.class);
 //        System.out.println(driver);
-        System.out.println("DriverServiceImpl -> mapped");
+//        System.out.println("DriverServiceImpl -> mapped");
         driverRepository.save(mapped);
 //        System.out.println(driver);
-        System.out.println("Driver saved");
+//        System.out.println("Driver saved");
         return true;
     }
 
     @Override
     public Boolean existsDriverByDriverId(String driver_id) {
-        System.out.println("DriverServiceImpl -> existsDriverByDriverId");
+//        System.out.println("DriverServiceImpl -> existsDriverByDriverId");
         boolean b = driverRepository.existsDriverById(driver_id);
-        System.out.println("DriverServiceImpl -> existsDriverByDriverId -> " + b);
+//        System.out.println("DriverServiceImpl -> existsDriverByDriverId -> " + b);
         return b;
     }
 
@@ -40,5 +39,17 @@ public class DriverServiceImpl implements DriverService {
         if (driverRepository.existsDriverById(driver_id))
             return modelMapper.map(driverRepository.getDriverById(driver_id), DriverDto.class);
         throw new RuntimeException("Driver not found!");
+    }
+
+    @Override
+    public String getOngoingId() {
+        String lastDriverId = driverRepository.findLastId();
+        System.out.println("last ongoing Driver -> " + lastDriverId);
+//        System.out.println(lastInsertedUser);
+        if (lastDriverId==null) return "D00001";
+        String[] split = lastDriverId.split("[D]");
+        int lastDigits = Integer.parseInt(split[1]);
+        lastDigits++;
+        return (String.format("D%05d", lastDigits));
     }
 }
