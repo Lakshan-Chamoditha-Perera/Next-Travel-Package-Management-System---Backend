@@ -6,4 +6,6 @@ public interface GuideService {
     boolean save(GuideDTO guideDTO);
     boolean existsByGuideId(String id);
     boolean deleteGuideById(String id);
+
+    boolean updateGuideById(GuideDTO guideDTO);
 }

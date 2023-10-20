@@ -24,6 +24,7 @@ public class GuideServiceImpl implements GuideService {
         return true;
     }
 
+
     @Override
     public boolean existsByGuideId(String guide_id) {
         return guideRepository.existsById(guide_id);
@@ -38,6 +39,15 @@ public class GuideServiceImpl implements GuideService {
         throw new RuntimeException("Guide not found");
     }
 
+    @Override
+    public boolean updateGuideById(GuideDTO guideDTO) {
+        if (guideRepository.existsById(guideDTO.getId())) {
+            Guide guide = modelMapper.map(guideDTO, Guide.class);
+            guideRepository.save(guide);
+            return true;
+        }
+        throw new RuntimeException("Guide not found");
+    }
 
 
 }
