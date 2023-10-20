@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @EnableMongoRepositories
 public interface GuideRepository extends MongoRepository<Guide, String> {
+    boolean existsById(String id);
 }

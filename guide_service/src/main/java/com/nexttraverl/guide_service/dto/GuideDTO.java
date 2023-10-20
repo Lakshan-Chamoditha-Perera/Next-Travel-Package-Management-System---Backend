@@ -1,20 +1,17 @@
-package com.nexttraverl.guide_service.entity;
+package com.nexttraverl.guide_service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Document
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Guide {
-    @Id
+public class GuideDTO {
+    private final List<byte[]> images_list = new ArrayList<>();
     private String id;
     private String name;
     private String address;
@@ -23,6 +20,5 @@ public class Guide {
     private String contact_number;
     private String experience;
     private double man_day_value;
-    private final List<byte[]> images_list = new ArrayList<>();
     private String remark;
 }
