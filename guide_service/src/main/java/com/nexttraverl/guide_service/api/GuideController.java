@@ -76,5 +76,32 @@ public class GuideController {
         return ResponseEntity.ok(guideId);
     }
 
+    @PatchMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> patch(
+            @RequestPart byte[] nic_front,
+            @RequestPart byte[] nic_back,
+            @RequestPart byte[] guide_id_front,
+            @RequestPart byte[] guide_id_back,
+            @RequestPart byte[] guide_img,
+            @RequestPart("guide") GuideDTO guide
+    ) {
+        guide.getImages_list().add(nic_front);
+        guide.getImages_list().add(nic_back);
+        guide.getImages_list().add(guide_id_front);
+        guide.getImages_list().add(guide_id_back);
+        guide.getImages_list().add(guide_img);
+        try {
+            validateGuideDetails(guide);
+            System.out.println("validated");
+            if (guideService.existsByGuideId(guide.getId())) {
+                guideService.save(guide);
+                return ResponseEntity.ok().build();
+            }
+            return ResponseEntity.badRequest().body("Guide not found");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 
 }
