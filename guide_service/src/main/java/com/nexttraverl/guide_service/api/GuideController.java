@@ -82,7 +82,7 @@ public class GuideController {
         System.out.println("Guide Controller -> getAll");
         List<GuideDTO> allGuides = guideService.getAllGuides();
         System.out.println(allGuides.size());
-        if (allGuides.size() == 0) return ResponseEntity.ok().body("No Guide found");
+        if (allGuides.size() == 0) return ResponseEntity.ok().body("");
         System.out.println("done");
         return ResponseEntity.ok().body(allGuides);
 
