@@ -52,6 +52,7 @@ public class DriverController {
         if (driver.getLicense_back().length == 0) {
             throw new RuntimeException("Invalid driver license back image");
         }
+
         System.out.println("Driver validated");
     }
 

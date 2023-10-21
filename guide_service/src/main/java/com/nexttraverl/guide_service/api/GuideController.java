@@ -64,5 +64,9 @@ public class GuideController {
         } catch (NumberFormatException e) {
             throw new RuntimeException("invalid price per day!");
         }
+        guide.getImages_list().forEach((element) -> {
+            if (element == null || element.length == 0)
+                throw new RuntimeException("Invalid or empty image found in the list.");
+        });
     }
 }
