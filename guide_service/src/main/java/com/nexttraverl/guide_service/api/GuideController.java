@@ -103,5 +103,17 @@ public class GuideController {
         }
     }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteGuide(@RequestHeader("id") String id) {
+        System.out.println("GuideController -> deleteGuide");
+        if (!Pattern.compile("^G\\d{3,}$").matcher(id).matches())
+            return ResponseEntity.badRequest().body("Invalid guide id");
+        try {
+            guideService.deleteGuideById(id);
+            return ResponseEntity.ok().body("Guide deleted successfully!");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
+    }
 
 }
