@@ -51,11 +51,12 @@ public class GuideServiceImpl implements GuideService {
     @Override
     public String getOnGoingGuideId() {
         String lastId = guideRepository.getLastGuideId();
-        String[] split = lastId.split("[G00001]");
+        if(lastId==null) return "G00001";
+        String[] split = lastId.split("[G]");
 //        System.out.println("split: " + split[1]);
         int lastDigits = Integer.parseInt(split[1]);
         lastDigits++;
-        return (String.format("U%05d", lastDigits));
+        return (String.format("G%05d", lastDigits));
     }
 
 
