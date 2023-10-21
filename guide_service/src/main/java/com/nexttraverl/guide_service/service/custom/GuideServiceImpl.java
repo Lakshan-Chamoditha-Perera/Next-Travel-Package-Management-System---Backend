@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class GuideServiceImpl implements GuideService {
@@ -47,6 +49,16 @@ public class GuideServiceImpl implements GuideService {
             return true;
         }
         throw new RuntimeException("Guide not found");
+    }
+
+    @Override
+    public String getOnGoingGuideId() {
+        String lastId = guideRepository.getLastGuideId();
+        String[] split = lastId.split("[G00001]");
+//        System.out.println("split: " + split[1]);
+        int lastDigits = Integer.parseInt(split[1]);
+        lastDigits++;
+        return (String.format("U%05d", lastDigits));
     }
 
 
