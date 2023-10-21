@@ -69,4 +69,12 @@ public class GuideController {
                 throw new RuntimeException("Invalid or empty image found in the list.");
         });
     }
+
+    @GetMapping("/get/lastId")
+    public ResponseEntity<?> getOngoingUserID() {
+        String guideId = guideService.getOnGoingGuideId();
+        return ResponseEntity.ok(guideId);
+    }
+
+
 }
