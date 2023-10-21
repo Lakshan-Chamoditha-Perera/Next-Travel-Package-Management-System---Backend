@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,8 +33,8 @@ public class GuideServiceImpl implements GuideService {
     @Override
     public boolean deleteGuideById(String id) {
         if (guideRepository.existsById(id)) {
-             guideRepository.deleteById(id);
-             return true;
+            guideRepository.deleteById(id);
+            return true;
         }
         throw new RuntimeException("Guide not found");
     }
@@ -51,12 +52,24 @@ public class GuideServiceImpl implements GuideService {
     @Override
     public String getOnGoingGuideId() {
         String lastId = guideRepository.getLastGuideId();
-        if(lastId==null) return "G00001";
+        if (lastId == null) return "G00001";
         String[] split = lastId.split("[G]");
 //        System.out.println("split: " + split[1]);
         int lastDigits = Integer.parseInt(split[1]);
         lastDigits++;
         return (String.format("G%05d", lastDigits));
+    }
+
+    @Override
+    public List<GuideDTO> getAllGuides() {
+        System.out.println("GuideServiceImpl -> getAllGuides");
+        List<Guide> guideList = guideRepository.findAll();
+        List<GuideDTO> guideDTOList = new ArrayList<>();
+        if (guideList.size() == 0) return guideDTOList;
+        guideList.forEach(ele -> {
+            guideDTOList.add(modelMapper.map(ele, GuideDTO.class));
+        });
+        return guideDTOList;
     }
 
 

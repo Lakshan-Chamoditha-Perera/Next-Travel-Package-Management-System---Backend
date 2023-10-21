@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 @RestController
@@ -21,11 +22,11 @@ public class GuideController {
 
         System.out.println("GuideController -> " + guide);
 
+        guide.getImages_list().add(guide_img);
         guide.getImages_list().add(nic_front);
         guide.getImages_list().add(nic_back);
         guide.getImages_list().add(guide_id_front);
         guide.getImages_list().add(guide_id_back);
-        guide.getImages_list().add(guide_img);
 
         try {
             validateGuideDetails(guide);
@@ -72,8 +73,19 @@ public class GuideController {
 
     @GetMapping("/get/lastId")
     public ResponseEntity<?> getOngoingUserID() {
+        System.out.println("get last id");
         String guideId = guideService.getOnGoingGuideId();
         return ResponseEntity.ok(guideId);
+    }
+    @GetMapping("/getAll")
+    public ResponseEntity<?> getAll() {
+        System.out.println("Guide Controller -> getAll");
+        List<GuideDTO> allGuides = guideService.getAllGuides();
+        System.out.println(allGuides.size());
+        if (allGuides.size() == 0) return ResponseEntity.ok().body("No Guide found");
+        System.out.println("done");
+        return ResponseEntity.ok().body(allGuides);
+
     }
 
     @PatchMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -85,11 +97,11 @@ public class GuideController {
             @RequestPart byte[] guide_img,
             @RequestPart("guide") GuideDTO guide
     ) {
+        guide.getImages_list().add(guide_img);
         guide.getImages_list().add(nic_front);
         guide.getImages_list().add(nic_back);
         guide.getImages_list().add(guide_id_front);
         guide.getImages_list().add(guide_id_back);
-        guide.getImages_list().add(guide_img);
         try {
             validateGuideDetails(guide);
             System.out.println("validated");
