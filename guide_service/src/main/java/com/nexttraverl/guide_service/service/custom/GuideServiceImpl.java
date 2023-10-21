@@ -18,9 +18,6 @@ public class GuideServiceImpl implements GuideService {
 
     @Override
     public boolean save(GuideDTO guideDTO) {
-        if (guideRepository.existsById(guideDTO.getId())) {
-            throw new RuntimeException("Guide already exists");
-        }
         Guide guide = modelMapper.map(guideDTO, Guide.class);
         guideRepository.save(guide);
         return true;
