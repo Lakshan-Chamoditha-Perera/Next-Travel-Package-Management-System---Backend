@@ -10,6 +10,7 @@ public interface GuideService {
     boolean deleteGuideById(String id);
     boolean updateGuideById(GuideDTO guideDTO);
     String getOnGoingGuideId();
+    GuideDTO getGuideById(String id);
 
     List<GuideDTO> getAllGuides();
 }

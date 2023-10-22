@@ -68,6 +68,11 @@ public class GuideServiceImpl implements GuideService {
     }
 
     @Override
+    public GuideDTO getGuideById(String id) {
+        return null;
+    }
+
+    @Override
     public List<GuideDTO> getAllGuides() {
         System.out.println("GuideServiceImpl -> getAllGuides");
         List<Guide> guideList = guideRepository.findAll();

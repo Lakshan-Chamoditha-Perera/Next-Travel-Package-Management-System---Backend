@@ -138,7 +138,7 @@ public class GuideController {
         System.out.println("VehicleController -> getVehicleByVehicleID: " + id);
         Boolean isExists = guideService.existsByGuideId(id);
         if (!isExists) return ResponseEntity.badRequest().body("Guide not found !");
-//        GuideDTO guide = guideService.getVehicleByVehicleId(vehicle_id);
+        GuideDTO guide = guideService.getGuideById(id);
         return ResponseEntity.ok(guide);
     }
 }
