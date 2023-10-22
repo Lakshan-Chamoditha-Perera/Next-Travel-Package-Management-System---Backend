@@ -35,7 +35,7 @@ public class GuideServiceImpl implements GuideService {
     }
 
     @Override
-    public boolean deleteGuideById(String id) {
+    public boolean deleteGuideById(String id)throws RuntimeException  {
         if (guideRepository.existsById(id)) {
             guideRepository.deleteById(id);
             return true;
