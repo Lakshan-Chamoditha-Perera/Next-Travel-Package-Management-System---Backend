@@ -6,12 +6,15 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @EnableMongoRepositories
 public interface GuideRepository extends MongoRepository<Guide, String> {
     boolean existsById(String id);
     boolean deleteGuideById(String id);
 
-    @Query(value = "{}", sort = "{id: -1}")
-    String getLastGuideId();
+    @Query(value = "{}", sort = "{id: -1}", fields = "{id: 1}")
+    List<Guide> getLastGuideId();
+
 }

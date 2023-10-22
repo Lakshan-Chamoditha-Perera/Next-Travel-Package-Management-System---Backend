@@ -55,8 +55,11 @@ public class GuideServiceImpl implements GuideService {
 
     @Override
     public String getOnGoingGuideId() {
-        String lastId = guideRepository.getLastGuideId();
-        if (lastId == null) return "G00001";
+        List<Guide> lastInsertedUser = guideRepository.getLastGuideId();
+//        System.out.println(lastInsertedUser);
+        if (lastInsertedUser.isEmpty()) return "G00001";
+//        System.out.println("last user id: " + lastInsertedUser.get(0).getUser_id());
+        String lastId = lastInsertedUser.get(0).getId();
         String[] split = lastId.split("[G]");
 //        System.out.println("split: " + split[1]);
         int lastDigits = Integer.parseInt(split[1]);

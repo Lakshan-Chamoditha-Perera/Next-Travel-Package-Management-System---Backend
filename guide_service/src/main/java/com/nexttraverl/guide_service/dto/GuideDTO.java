@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GuideDTO {
-    private final List<byte[]> images_list = new ArrayList<>();
+    private List<byte[]> images_list = new ArrayList<>();
     private String id;
     private String name;
     private String address;
