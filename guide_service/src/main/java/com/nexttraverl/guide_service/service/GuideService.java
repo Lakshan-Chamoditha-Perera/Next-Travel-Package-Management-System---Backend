@@ -13,4 +13,6 @@ public interface GuideService {
     GuideDTO getGuideById(String id);
 
     List<GuideDTO> getAllGuides();
+
+    void update(GuideDTO guide);
 }
