@@ -18,7 +18,7 @@ public class GuideController {
     public final GuideService guideService;
 
     @PostMapping(value = "/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> save(@RequestPart byte[] nic_front, @RequestPart byte[] nic_back, @RequestPart byte[] guide_id_front, @RequestPart byte[] guide_id_back, @RequestPart byte[] guide_img, @RequestPart("guide") GuideDTO guide) {
+    public ResponseEntity<?> save(@RequestPart("nic_front") byte[] nic_front, @RequestPart("nic_back") byte[] nic_back, @RequestPart("guide_id_front") byte[] guide_id_front, @RequestPart("guide_id_back") byte[] guide_id_back, @RequestPart("profile") byte[] guide_img, @RequestPart("guide") GuideDTO guide) {
 
         System.out.println("GuideController -> " + guide);
 
@@ -27,11 +27,12 @@ public class GuideController {
         guide.getImages_list().add(nic_back);
         guide.getImages_list().add(guide_id_front);
         guide.getImages_list().add(guide_id_back);
-
+        System.out.println("GuideController -> " + guide);
         try {
             validateGuideDetails(guide);
             System.out.println("validated");
             if (guideService.existsByGuideId(guide.getId())) {
+
                 System.out.println("exists");
                 return ResponseEntity.badRequest().body("Guide already exists!");
             }
@@ -55,12 +56,10 @@ public class GuideController {
             throw new RuntimeException("Invalid gender type");
         if (!Pattern.compile("^[a-zA-Z0-9\\s]+$").matcher(guide.getAddress()).matches())
             throw new RuntimeException("Invalid address");
-        if (!Pattern.compile("^\\d$").matcher(String.valueOf(guide.getAge())).matches())
-            throw new RuntimeException("Invalid seat capacity!");
-        if (!Pattern.compile("^.+$").matcher(guide.getExperience()).matches())
-            throw new RuntimeException("Invalid experience!");
         try {
-            if (!Pattern.compile("^\\d+$").matcher(String.valueOf(guide.getMan_day_value())).matches())
+            if (!Pattern.compile("^\\d+$").matcher(String.valueOf(guide.getAge())).matches())
+                throw new RuntimeException("Invalid seat capacity!");
+            if (!Pattern.compile("^\\d+(\\.\\d+)?$").matcher(String.valueOf(guide.getMan_day_value())).matches())
                 throw new RuntimeException("invalid price per day!");
         } catch (NumberFormatException e) {
             throw new RuntimeException("invalid price per day!");
@@ -77,6 +76,7 @@ public class GuideController {
         String guideId = guideService.getOnGoingGuideId();
         return ResponseEntity.ok(guideId);
     }
+
     @GetMapping("/getAll")
     public ResponseEntity<?> getAll() {
         System.out.println("Guide Controller -> getAll");
@@ -89,14 +89,7 @@ public class GuideController {
     }
 
     @PatchMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> patch(
-            @RequestPart byte[] nic_front,
-            @RequestPart byte[] nic_back,
-            @RequestPart byte[] guide_id_front,
-            @RequestPart byte[] guide_id_back,
-            @RequestPart byte[] guide_img,
-            @RequestPart("guide") GuideDTO guide
-    ) {
+    public ResponseEntity<?> patch(@RequestPart byte[] nic_front, @RequestPart byte[] nic_back, @RequestPart byte[] guide_id_front, @RequestPart byte[] guide_id_back, @RequestPart byte[] guide_img, @RequestPart("guide") GuideDTO guide) {
         guide.getImages_list().add(guide_img);
         guide.getImages_list().add(nic_front);
         guide.getImages_list().add(nic_back);

@@ -20,6 +20,10 @@ public class GuideServiceImpl implements GuideService {
     @Override
     public boolean save(GuideDTO guideDTO) {
         Guide guide = modelMapper.map(guideDTO, Guide.class);
+        guideDTO.getImages_list().forEach(ele -> {
+            guide.getImages_list().add(ele);
+        });
+        System.out.println("Guide -> " + guide);
         guideRepository.save(guide);
         return true;
     }
