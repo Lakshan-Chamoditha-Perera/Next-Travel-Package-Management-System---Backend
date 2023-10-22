@@ -18,7 +18,13 @@ public class GuideController {
     public final GuideService guideService;
 
     @PostMapping(value = "/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> save(@RequestPart("nic_front") byte[] nic_front, @RequestPart("nic_back") byte[] nic_back, @RequestPart("guide_id_front") byte[] guide_id_front, @RequestPart("guide_id_back") byte[] guide_id_back, @RequestPart("profile") byte[] guide_img, @RequestPart("guide") GuideDTO guide) {
+    public ResponseEntity<?> save(
+            @RequestPart("nic_front") byte[] nic_front,
+            @RequestPart("nic_back") byte[] nic_back,
+            @RequestPart("guide_id_front") byte[] guide_id_front,
+            @RequestPart("guide_id_back") byte[] guide_id_back,
+            @RequestPart("profile") byte[] guide_img,
+            @RequestPart("guide") GuideDTO guide) {
 
         System.out.println("GuideController -> " + guide);
 
@@ -89,7 +95,13 @@ public class GuideController {
     }
 
     @PatchMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> patch(@RequestPart byte[] nic_front, @RequestPart byte[] nic_back, @RequestPart byte[] guide_id_front, @RequestPart byte[] guide_id_back, @RequestPart byte[] guide_img, @RequestPart("guide") GuideDTO guide) {
+    public ResponseEntity<?> patch(
+            @RequestPart byte[] nic_front,
+            @RequestPart byte[] nic_back,
+            @RequestPart byte[] guide_id_front,
+            @RequestPart byte[] guide_id_back,
+            @RequestPart byte[] guide_img,
+            @RequestPart("guide") GuideDTO guide) {
         guide.getImages_list().add(guide_img);
         guide.getImages_list().add(nic_front);
         guide.getImages_list().add(nic_back);
