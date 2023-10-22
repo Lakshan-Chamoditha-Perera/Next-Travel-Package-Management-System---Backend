@@ -133,4 +133,12 @@ public class GuideController {
         }
     }
 
+    @GetMapping("/get")
+    public ResponseEntity<?> getGuideById(@RequestHeader String id) {
+        System.out.println("VehicleController -> getVehicleByVehicleID: " + id);
+        Boolean isExists = guideService.existsByGuideId(id);
+        if (!isExists) return ResponseEntity.badRequest().body("Guide not found !");
+//        GuideDTO guide = guideService.getVehicleByVehicleId(vehicle_id);
+        return ResponseEntity.ok(guide);
+    }
 }
