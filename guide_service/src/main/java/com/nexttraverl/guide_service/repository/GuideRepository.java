@@ -17,4 +17,6 @@ public interface GuideRepository extends MongoRepository<Guide, String> {
     @Query(value = "{}", sort = "{id: -1}", fields = "{id: 1}")
     List<Guide> getLastGuideId();
 
+    Guide getGuideById(String id);
+
 }
