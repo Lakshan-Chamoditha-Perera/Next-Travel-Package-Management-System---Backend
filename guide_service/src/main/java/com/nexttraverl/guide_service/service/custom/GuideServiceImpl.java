@@ -70,10 +70,7 @@ public class GuideServiceImpl implements GuideService {
     @Override
     public GuideDTO getGuideById(String id) {
         Guide guideById = guideRepository.getGuideById(id);
-        if (guideById != null) {
-            return modelMapper.map(guideById, GuideDTO.class);
-        }
-        throw new RuntimeException("Guide not found");
+        return modelMapper.map(guideById, GuideDTO.class);
     }
 
     @Override
