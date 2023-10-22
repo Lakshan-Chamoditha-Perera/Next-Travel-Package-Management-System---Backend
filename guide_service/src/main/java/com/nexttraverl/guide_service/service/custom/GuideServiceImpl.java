@@ -85,5 +85,4 @@ public class GuideServiceImpl implements GuideService {
         return guideDTOList;
     }
 
-
 }
