@@ -14,6 +14,9 @@ public class Hotel {
     @ElementCollection
     @CollectionTable(name = "hotel_option_price", joinColumns = @JoinColumn(name = "hotel_id"))
     Map<String, Double> room_type_price = new HashMap<>();
+    @ElementCollection
+    @CollectionTable(name = "images", joinColumns = @JoinColumn(name = "hotel_id"))
+    List<byte[]> imageList = new ArrayList<>();
     @Id
     private String id;
     private String name;
@@ -27,6 +30,11 @@ public class Hotel {
     private List<String> contact_list = new ArrayList<>();
     private String is_pet_allowed;
     private String cancellation_criteria;
+    private double tax;
 
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Discount>discountList =new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Room>roomList =new ArrayList<>();
 }
