@@ -9,4 +9,9 @@ public interface HotelService {
     String getOngoingHotelId();
     List<HotelDto> getAllHotels();
 
+    HotelDto getHotelById(String id);
+
+    boolean save(HotelDto hotelDto);
+
+    boolean existsHotelById(String id);
 }

@@ -20,7 +20,7 @@ public class HotelServiceImplImpl implements HotelService {
     @Override
     public String getOngoingHotelId() {
         String lastHotelId = hotelRepository.findLastHotelId();
-        if (lastHotelId==null) return "H00001";
+        if (lastHotelId == null) return "H00001";
         String[] split = lastHotelId.split("[H]");
         int lastDigits = Integer.parseInt(split[1]);
         lastDigits++;
@@ -33,5 +33,25 @@ public class HotelServiceImplImpl implements HotelService {
 //
         return null;
     }
+
+    @Override
+    public HotelDto getHotelById(String id) {
+        Hotel hotelById = hotelRepository.findHotelById(id);
+        return modelMapper.map(hotelById, HotelDto.class);
+    }
+
+    @Override
+    public boolean save(HotelDto hotelDto) {
+        Hotel hotel = modelMapper.map(hotelDto, Hotel.class);
+        System.out.println("service-> hotel = " + hotel);
+        Hotel save = hotelRepository.save(hotel);
+        return save != null;
+    }
+
+    @Override
+    public boolean existsHotelById(String id) {
+        return hotelRepository.existsHotelById(id);
+    }
+
 
 }

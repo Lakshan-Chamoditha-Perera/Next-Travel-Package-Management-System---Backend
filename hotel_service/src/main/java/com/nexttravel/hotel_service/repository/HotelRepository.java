@@ -11,4 +11,8 @@ import org.springframework.stereotype.Repository;
 public interface HotelRepository extends JpaRepository<Hotel, String> {
     @Query("SELECT MAX (h.id) FROM Hotel h")
     String findLastHotelId();
+
+    Hotel findHotelById(String id);
+
+    boolean existsHotelById(String id);
 }

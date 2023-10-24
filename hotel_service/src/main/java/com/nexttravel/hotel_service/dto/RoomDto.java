@@ -10,10 +10,10 @@ import lombok.ToString;
 @NoArgsConstructor
 public class RoomDto {
     private boolean is_available;
-    private String room_type;
     private String description;
     private int capacity;
     private String id;
     @ToString.Exclude
     private HotelDto hotel;
+    private RoomTypeDto room_type;
 }

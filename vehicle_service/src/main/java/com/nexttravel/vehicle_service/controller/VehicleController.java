@@ -21,7 +21,14 @@ public class VehicleController {
     private final DriverService driverService;
 
     @PostMapping(value = "/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> register(@RequestPart("vehicle_img1") byte[] vehicle_img1, @RequestPart("vehicle_img2") byte[] vehicle_img2, @RequestPart("vehicle_img3") byte[] vehicle_img3, @RequestPart("vehicle_img4") byte[] vehicle_img4, @RequestPart("vehicle_img5") byte[] vehicle_img5, @RequestPart("vehicle") VehicleDto vehicleDto, @RequestPart("driver_id") String driver_id) {
+    public ResponseEntity<?> register(
+            @RequestPart("vehicle_img1") byte[] vehicle_img1,
+            @RequestPart("vehicle_img2") byte[] vehicle_img2,
+            @RequestPart("vehicle_img3") byte[] vehicle_img3,
+            @RequestPart("vehicle_img4") byte[] vehicle_img4,
+            @RequestPart("vehicle_img5") byte[] vehicle_img5,
+            @RequestPart("vehicle") VehicleDto vehicleDto,
+            @RequestPart("driver_id") String driver_id) {
         System.out.println("VehicleController -> " + vehicleDto);
 
         vehicleDto.getImageList().add(vehicle_img1);
