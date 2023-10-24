@@ -1,5 +1,6 @@
 package com.nexttravel.hotel_service.dto;
 
+import com.nexttravel.hotel_service.entity.Hotel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,12 +9,12 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoomDto {
+public class OptionsDto {
+    double price;
     private boolean is_available;
     private String description;
     private int capacity;
-    private String id;
+    private int id;
     @ToString.Exclude
-    private HotelDto hotel;
-    private RoomTypeDto room_type;
+    private Hotel hotel;
 }

@@ -15,8 +15,6 @@ public class Hotel {
             @Column(columnDefinition = "LONGBLOB")
     List<byte[]> image_list = new ArrayList<>();
 
-    @OneToMany( cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    List<RoomType> room_type_list = new ArrayList<>();
 
     @Id
     private String id;
@@ -35,7 +33,7 @@ public class Hotel {
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Discount> discount_list = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<Room> room_list = new ArrayList<>();
+    @OneToMany(cascade ={ CascadeType.REMOVE,CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    private List<Options> options_list = new ArrayList<>();
 
 }

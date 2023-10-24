@@ -52,12 +52,7 @@ public class HotelController {
             throw new RuntimeException("Invalid hotel name");
         if (!Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$").matcher(hotelDto.getEmail()).matches())
             throw new RuntimeException("Invalid hotel email");
-        try {
-            if (!Pattern.compile("^\\d{10}$").matcher(hotelDto.getContact()).matches())
-                throw new RuntimeException("Invalid hotel contact");
-        } catch (RuntimeException e) {
-            throw new RuntimeException("Invalid hotel contact");
-        }
+
         if (!Pattern.compile("^[A-Za-z0-9 ]{3,}$").matcher(hotelDto.getLocation()).matches())
             throw new RuntimeException("Invalid hotel location");
         try {
@@ -83,9 +78,9 @@ public class HotelController {
             throw new RuntimeException("Invalid tax !");
         }
 
-        hotelDto.getRoom_type_list().forEach(element -> {
-            if (element.getName() == null && element.getPrice() == 0) {
-                throw new RuntimeException("Invalid room type !");
+        hotelDto.getOptions_list().forEach(element -> {
+            if (element.getDescription() == null && element.getPrice() == 0) {
+                throw new RuntimeException("Invalid option type !");
             }
         });
 
