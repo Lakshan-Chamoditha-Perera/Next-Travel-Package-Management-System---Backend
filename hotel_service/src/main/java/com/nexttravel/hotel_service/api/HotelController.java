@@ -99,6 +99,7 @@ public class HotelController {
             return ResponseEntity.badRequest().body("Hotel not found");
         }
     }
+
     @GetMapping("/get")
     public ResponseEntity<?> getHotel(@RequestHeader String id) {
         if (hotelService.existsHotelById(id)) {
@@ -106,6 +107,36 @@ public class HotelController {
             return ResponseEntity.ok().body(hotelDto);
         } else {
             return ResponseEntity.badRequest().body("Hotel not found");
+        }
+    }
+
+    @PatchMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> updateHotel(@RequestPart("img1") byte[] img1, @RequestPart("img2") byte[] img2, @RequestPart("img3") byte[] img3, @RequestPart("img4") byte[] img4, @RequestPart("hotel") HotelDto hotelDto) {
+        hotelDto.getImage_list().add(img1);
+        hotelDto.getImage_list().add(img2);
+        hotelDto.getImage_list().add(img3);
+        hotelDto.getImage_list().add(img4);
+        try {
+            validateHotelDetails(hotelDto);
+            if (!hotelService.existsHotelById(hotelDto.getId())) {
+                return ResponseEntity.badRequest().body("Hotel not found!");
+            }
+            System.out.println("Api -> hotelDto = " + hotelDto);
+            if (hotelService.save(hotelDto)) return ResponseEntity.ok().build();
+            else return ResponseEntity.badRequest().body("Something went wrong");
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<?> getAllHotels() {
+        try {
+            return ResponseEntity.ok().body(hotelService.getAllHotels());
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }

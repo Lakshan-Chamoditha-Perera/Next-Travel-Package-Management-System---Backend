@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,8 +30,10 @@ public class HotelServiceImplImpl implements HotelService {
     @Override
     public List<HotelDto> getAllHotels() {
         List<Hotel> hotelList = hotelRepository.findAll();
-//
-        return null;
+        if (hotelList.size() > 0) {
+            return hotelList.stream().map(hotel -> modelMapper.map(hotel, HotelDto.class)).collect(Collectors.toList());
+        }
+        throw new RuntimeException("No hotels found");
     }
 
     @Override
@@ -57,6 +60,4 @@ public class HotelServiceImplImpl implements HotelService {
         hotelRepository.deleteHotelById(id);
         return true;
     }
-
-
 }
