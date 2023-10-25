@@ -11,7 +11,6 @@ import lombok.ToString;
 @NoArgsConstructor
 public class OptionsDto {
     double price;
-    private boolean is_available;
     private String description;
     private int capacity;
     private int id;

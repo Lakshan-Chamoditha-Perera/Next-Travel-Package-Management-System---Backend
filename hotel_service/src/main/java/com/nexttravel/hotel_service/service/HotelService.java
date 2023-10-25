@@ -14,4 +14,6 @@ public interface HotelService {
     boolean save(HotelDto hotelDto);
 
     boolean existsHotelById(String id);
+
+    boolean deleteHotelById(String id);
 }

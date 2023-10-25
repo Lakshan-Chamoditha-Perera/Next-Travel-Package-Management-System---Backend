@@ -24,6 +24,7 @@ public class HotelDto {
     private String contact;
     private String is_pet_allowed;
     private String cancellation_criteria;
+    private String description;
     private double tax;
     private List<DiscountDto> discount_list = new ArrayList<>();
     private List<OptionsDto> options_list = new ArrayList<>();

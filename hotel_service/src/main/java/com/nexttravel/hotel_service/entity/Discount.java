@@ -9,7 +9,7 @@ import lombok.ToString;
 public class Discount {
     @Id
     private String code;
-    private boolean is_available;
+    private String is_available;
     private double discount_percentage;
     private String description;
 

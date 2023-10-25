@@ -27,13 +27,14 @@ public class Hotel {
     private String email;
     private String contact;
     private String is_pet_allowed;
+    private String description;
     private String cancellation_criteria;
     private double tax;
 
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Discount> discount_list = new ArrayList<>();
 
-    @OneToMany(cascade ={ CascadeType.REMOVE,CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @OneToMany(cascade ={ CascadeType.ALL}, fetch = FetchType.EAGER)
     private List<Options> options_list = new ArrayList<>();
 
 }

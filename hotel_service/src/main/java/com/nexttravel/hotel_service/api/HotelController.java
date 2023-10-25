@@ -89,4 +89,23 @@ public class HotelController {
                 throw new RuntimeException("Invalid or empty image found in the list.");
         });
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteHotel(@RequestHeader String id) {
+        if (hotelService.existsHotelById(id)) {
+            hotelService.deleteHotelById(id);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().body("Hotel not found");
+        }
+    }
+    @GetMapping("/get")
+    public ResponseEntity<?> getHotel(@RequestHeader String id) {
+        if (hotelService.existsHotelById(id)) {
+            HotelDto hotelDto = hotelService.getHotelById(id);
+            return ResponseEntity.ok().body(hotelDto);
+        } else {
+            return ResponseEntity.badRequest().body("Hotel not found");
+        }
+    }
 }

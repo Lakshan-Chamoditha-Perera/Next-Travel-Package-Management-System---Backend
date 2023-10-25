@@ -11,7 +11,6 @@ import lombok.ToString;
 @Data
 public class Options {
     double price;
-    private boolean is_available = true;
     private String description;
     private int capacity;
     @Id

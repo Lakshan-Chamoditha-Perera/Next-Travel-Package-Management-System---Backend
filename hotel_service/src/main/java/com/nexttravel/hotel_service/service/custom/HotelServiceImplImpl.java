@@ -4,7 +4,6 @@ import com.nexttravel.hotel_service.dto.HotelDto;
 import com.nexttravel.hotel_service.entity.Hotel;
 import com.nexttravel.hotel_service.repository.HotelRepository;
 import com.nexttravel.hotel_service.service.HotelService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -51,6 +50,12 @@ public class HotelServiceImplImpl implements HotelService {
     @Override
     public boolean existsHotelById(String id) {
         return hotelRepository.existsHotelById(id);
+    }
+
+    @Override
+    public boolean deleteHotelById(String id) {
+        hotelRepository.deleteHotelById(id);
+        return true;
     }
 
 
