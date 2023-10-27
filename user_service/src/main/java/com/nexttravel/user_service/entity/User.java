@@ -22,7 +22,7 @@ public class User {
     private String contact_number;
     private String remark;
     private String password;
-    private List<Role> roleList;
+//    private List<Role> roleList;
     private byte[] nic_front;
     private byte[] nic_back;
 

@@ -25,7 +25,7 @@ public class UserController {
             @RequestPart("user") UserDto userDto) {
         System.out.println("register");
         try {
-            userDto.setRole("ROLE_USER");
+//            userDto.setRole("ROLE_USER");
             validateUserdata(userDto);
 
             validateImages(nic_front, nic_back);
@@ -75,10 +75,11 @@ public class UserController {
         } else if (userDTO.getPassword() == null) {
             System.out.println("invalid password");
             throw new UserValidationException("Password is null");
-        } else if (userDTO.getRole() == null) {
+        }
+        /*else if (userDTO.getRole() == null) {
             System.out.println("invalid role");
             throw new UserValidationException("invalid role");
-        }
+        }*/
     }
 /*
 if (!Pattern.compile("^U\\d{3,}$").matcher(userDTO.getUser_id()).matches())

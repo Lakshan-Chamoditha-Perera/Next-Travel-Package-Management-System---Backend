@@ -2,6 +2,7 @@ package com.nexttravel.user_service.repository;
 
 import com.nexttravel.user_service.entity.User;
 import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@EnableMongoRepositories
 public interface UserRepository extends CrudRepository<User, String> {
     Optional<User> findUserByUsername(String name);
 
@@ -20,5 +22,5 @@ public interface UserRepository extends CrudRepository<User, String> {
     List<User> findLastInsertedUser();
 
     Boolean deleteUserByUsername(String username);
-    List<User> getAll();
+//    List<User> getAll();
 }
