@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="MavenProjectsManager">
@@ -11,11 +12,13 @@
         <option value="$PROJECT_DIR$/user_service/pom.xml" />
         <option value="$PROJECT_DIR$/vehicle_service/pom.xml" />
         <option value="$PROJECT_DIR$/hotel_service/pom.xml" />
+        <option value="$PROJECT_DIR$/discovery/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/Dispatcher Service/pom.xml" />
+        <option value="$PROJECT_DIR$/Service_Dispatcher/pom.xml" />
         <option value="$PROJECT_DIR$/demo/pom.xml" />
       </set>
     </option>

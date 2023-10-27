@@ -11,12 +11,13 @@
         <module name="guide_service" />
         <module name="user_service" />
         <module name="hotel_service" />
-        <module name="Service_Dispatcher" />
+        <module name="discovery" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="DispatcherService" target="17" />
       <module name="Service_Despatcher" target="17" />
+      <module name="Service_Dispatcher" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -24,6 +25,7 @@
       <module name="DispatcherService" options="-parameters" />
       <module name="Service_Despatcher" options="-parameters" />
       <module name="Service_Dispatcher" options="-parameters" />
+      <module name="discovery" options="-parameters" />
       <module name="guide_service" options="-parameters" />
       <module name="hotel_service" options="-parameters" />
       <module name="user_service" options="-parameters" />

@@ -7,6 +7,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Document
 @Data
@@ -21,7 +22,7 @@ public class User {
     private String contact_number;
     private String remark;
     private String password;
-    private String Role;
+    private List<Role> roleList;
     private byte[] nic_front;
     private byte[] nic_back;
 

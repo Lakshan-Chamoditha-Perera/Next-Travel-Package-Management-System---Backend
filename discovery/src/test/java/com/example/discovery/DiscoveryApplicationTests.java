@@ -1,10 +1,10 @@
-package com.example.service_dispatcher;
+package com.example.discovery;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ServiceDispatcherApplicationTests {
+class DiscoveryApplicationTests {
 
     @Test
     void contextLoads() {
