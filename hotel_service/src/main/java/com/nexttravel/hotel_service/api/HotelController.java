@@ -139,4 +139,9 @@ public class HotelController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping
+    public void get(){
+        System.out.println("Done");
+    }
 }
