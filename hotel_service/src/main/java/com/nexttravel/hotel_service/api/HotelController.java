@@ -135,7 +135,6 @@ public class HotelController {
         try {
             return ResponseEntity.ok().body(hotelService.getAllHotels());
         } catch (RuntimeException e) {
-            e.printStackTrace();
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

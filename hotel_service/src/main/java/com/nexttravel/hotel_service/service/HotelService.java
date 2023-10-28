@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface HotelService {
     String getOngoingHotelId();
-    List<HotelDto> getAllHotels();
+    List<HotelDto> getAllHotels() throws RuntimeException ;
 
     HotelDto getHotelById(String id);
 

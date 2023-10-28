@@ -28,7 +28,7 @@ public class HotelServiceImplImpl implements HotelService {
     }
 
     @Override
-    public List<HotelDto> getAllHotels() {
+    public List<HotelDto> getAllHotels()  throws RuntimeException{
         List<Hotel> hotelList = hotelRepository.findAll();
         if (hotelList.size() > 0) {
             return hotelList.stream().map(hotel -> modelMapper.map(hotel, HotelDto.class)).collect(Collectors.toList());
