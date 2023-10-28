@@ -1,5 +1,6 @@
 package com.nexttravel.securityservice.api;
 
+import com.nexttravel.securityservice.dto.UserDto;
 import com.nexttravel.securityservice.entity.User;
 import com.nexttravel.securityservice.payload.LoginRequest;
 import com.nexttravel.securityservice.payload.responses.JwtResponse;
@@ -30,22 +31,15 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/auth/register")
-    public MessageResponse registerUser(@RequestBody User user) {
-        if (authService.isUserExists(user.getUsername())) {
+    public MessageResponse registerUser(@RequestBody UserDto userDto) {
+        if (authService.isUserExists(userDto.getUsername())) {
             return new MessageResponse("User is already taken!",   true);
         }
-        if (userRepository.existsByEmail(user.getEmail())) {
+        if (userRepository.existsByEmail(userDto.getEmail())) {
             return new MessageResponse("Email is already taken!", true);
         }
-
-        User newUser = new User();
-        newUser.setId(user.getId());
-        newUser.setUsername(user.getUsername());
-        newUser.setEmail(user.getEmail());
-        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        userRepository.save(newUser);
-
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        authService.save(userDto);
         return new MessageResponse("User created successfully!", null);
     }
 

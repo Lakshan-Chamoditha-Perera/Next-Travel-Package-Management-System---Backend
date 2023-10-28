@@ -1,7 +1,9 @@
 package com.nexttravel.securityservice.service;
 
+import com.nexttravel.securityservice.dto.UserDto;
+
 public interface AuthService {
     Boolean isUserExists(String username);
-    Boolean save(UserDto userDto);
+    String save(UserDto userDto);
 
 }
