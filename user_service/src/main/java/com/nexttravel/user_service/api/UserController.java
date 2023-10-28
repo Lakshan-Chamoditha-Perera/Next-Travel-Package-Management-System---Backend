@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 public class UserController {
     private final UserService userService;
 
-    /*@PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+ /*   @PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> register(@RequestPart("nic_front") byte[] nic_front, @RequestPart("nic_back") byte[] nic_back, @RequestPart("user") UserDto userDto) {
         System.out.println("register");
         try {
@@ -31,14 +31,15 @@ public class UserController {
         userDto.setNic_back(nic_back);
         userDto.setUser_id(userService.getOngoingUserID());
         return userService.save(userDto) ? ResponseEntity.ok().body(new MessageResponse("User registration successful", null)) : ResponseEntity.badRequest().body(new MessageResponse("User registration failed", null));
-    }*/
-
+    }
+*/
     @PostMapping(value = "/register")
     public ResponseEntity<?> register(@RequestBody UserDto userDto) {
         System.out.println("register");
         userDto.setUser_id(userService.getOngoingUserID());
         return userService.save(userDto) ? ResponseEntity.ok().body(new MessageResponse("User registration successful", null)) : ResponseEntity.badRequest().body(new MessageResponse("User registration failed", null));
     }
+
 
     private void validateImages(byte[] nicFront, byte[] nicBack) {
         try {
@@ -111,5 +112,16 @@ public class UserController {
         return ResponseEntity.badRequest().body(new MessageResponse("User not found", null));
     }
 
-
+    @GetMapping("/get/{username}")
+    public MessageResponse getUserByUsername(@PathVariable String username) {
+        if (!Pattern.compile("^([a-zA-Z]+( [a-zA-Z]+)*)$").matcher(username).matches()) {
+            System.out.println("invalid username");
+            return new MessageResponse("Invalid  username type!", null);
+        }
+        Boolean existsUserByUsername = userService.existsUserByUsername(username);
+        if (existsUserByUsername) {
+            return new MessageResponse("exists",userService.getUserByUsername(username));
+        }
+        return new MessageResponse("User not found", null);
+    }
 }

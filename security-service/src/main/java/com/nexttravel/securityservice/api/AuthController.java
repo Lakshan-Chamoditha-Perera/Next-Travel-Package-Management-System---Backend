@@ -33,7 +33,7 @@ public class AuthController {
     @PostMapping("/auth/register")
     public MessageResponse registerUser(@RequestBody UserDto userDto) {
         if (authService.isUserExists(userDto.getUsername())) {
-            return new MessageResponse("User is already taken!",   true);
+            return new MessageResponse("User is already taken!", true);
         }
         if (userRepository.existsByEmail(userDto.getEmail())) {
             return new MessageResponse("Email is already taken!", true);
@@ -44,23 +44,23 @@ public class AuthController {
     }
 
     @PostMapping("/auth/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+    public MessageResponse login(@RequestBody LoginRequest request) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt  = jwtUtils.generateJwtToken(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
 
-        Optional<User> byUsername = userRepository.findByUsername(request.getUsername());
-        User user = byUsername.get();
-        System.out.println("Token created...");
-        return ResponseEntity.ok(
-                new JwtResponse(
-                        jwt,
-                        user.getId(),
-                        user.getUsername(),
-                        user.getEmail()
-                )
-        );
+        if (!authService.isUserExists(request.getUsername())) {
+            return new MessageResponse("User not found", null);
+        }
+        try{
+            UserDto user = authService.findByUsername(request.getUsername());
+            System.out.println("Token created...");
+            return new MessageResponse("Login successful",new JwtResponse(jwt, user.getUser_id(), user.getUsername(), user.getEmail()));
+        }catch (RuntimeException e){
+            return new MessageResponse(e.getMessage(), null);
+        }
     }
+
     @GetMapping("/auth/validate")
     public Boolean validateToken(@RequestParam("token") String token) {
         return jwtUtils.validateJwtToken(token);

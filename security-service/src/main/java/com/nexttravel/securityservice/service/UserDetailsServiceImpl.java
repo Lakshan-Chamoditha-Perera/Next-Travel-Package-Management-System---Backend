@@ -1,5 +1,6 @@
 package com.nexttravel.securityservice.service;
 
+import com.nexttravel.securityservice.dto.UserDto;
 import com.nexttravel.securityservice.entity.User;
 import com.nexttravel.securityservice.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,17 +13,18 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class  UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
-
+private final AuthService authService;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        User user = userRepository.findByUsername(username).orElse(null);
-        if (user == null) {
+        UserDto userDto = authService.findByUsername(username);
+        System.out.println("UserDetailServiceImpl -> "+userDto);
+        if (userDto == null) {
             throw new UsernameNotFoundException("User not found with the given username");
         }
         return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getUsername())
-                .password(user.getPassword())
+                .username(userDto.getUsername())
+                .password(userDto.getPassword())
                 .build();
     }
 }

@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @Override
     public Boolean existsUserByUsername(String username) {
@@ -31,6 +31,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean deleteByUsername(String username) {
         return userRepository.deleteUserByUsername(username);
+    }
+
+    @Override
+    public UserDto getUserByUsername(String username) {
+        User user = userRepository.getUserByUsername(username);
+        return modelMapper.map(user, UserDto.class);
     }
 
     @Override

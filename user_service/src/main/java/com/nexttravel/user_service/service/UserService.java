@@ -10,5 +10,7 @@ public interface UserService {
     String getOngoingUserID();
     Boolean save (UserDto userDto);
     Boolean deleteByUsername (String username);
+    UserDto getUserByUsername (String username);
     List<UserDto> getAllUsersList();
+
 }

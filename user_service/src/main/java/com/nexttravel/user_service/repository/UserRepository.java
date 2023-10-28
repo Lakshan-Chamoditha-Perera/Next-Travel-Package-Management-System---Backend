@@ -24,4 +24,6 @@ public interface UserRepository extends CrudRepository<User, String> {
 
     Boolean deleteUserByUsername(String username);
 //    List<User> getAll();
+
+    User getUserByUsername(String username);
 }
