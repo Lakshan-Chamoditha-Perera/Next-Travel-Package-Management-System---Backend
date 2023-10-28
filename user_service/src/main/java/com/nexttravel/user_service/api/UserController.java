@@ -18,26 +18,25 @@ import java.util.regex.Pattern;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    /*@PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> register(@RequestPart("nic_front") byte[] nic_front, @RequestPart("nic_back") byte[] nic_back, @RequestPart("user") UserDto userDto) {
         System.out.println("register");
         try {
-//            userDto.setRole("ROLE_USER");
             validateUserdata(userDto);
-
             validateImages(nic_front, nic_back);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage(), null));
         }
-        Boolean existsUserByUsername = userService.existsUserByUsername(userDto.getUsername());
-
         userDto.setNic_front(nic_front);
         userDto.setNic_back(nic_back);
-        if (existsUserByUsername)
-            return ResponseEntity.badRequest().body(new MessageResponse("Username already exists", null));
-
         userDto.setUser_id(userService.getOngoingUserID());
+        return userService.save(userDto) ? ResponseEntity.ok().body(new MessageResponse("User registration successful", null)) : ResponseEntity.badRequest().body(new MessageResponse("User registration failed", null));
+    }*/
 
+    @PostMapping(value = "/register")
+    public ResponseEntity<?> register(@RequestBody UserDto userDto) {
+        System.out.println("register");
+        userDto.setUser_id(userService.getOngoingUserID());
         return userService.save(userDto) ? ResponseEntity.ok().body(new MessageResponse("User registration successful", null)) : ResponseEntity.badRequest().body(new MessageResponse("User registration failed", null));
     }
 
@@ -78,10 +77,7 @@ public class UserController {
             throw new UserValidationException("invalid role");
         }*/
     }
-/*
-if (!Pattern.compile("^U\\d{3,}$").matcher(userDTO.getUser_id()).matches())
-        throw new UserValidationException("Invalid userDTO id type!");
-*/
+
 
     @GetMapping("/check/{username}")
     public MessageResponse checkUsername(@PathVariable String username) {
