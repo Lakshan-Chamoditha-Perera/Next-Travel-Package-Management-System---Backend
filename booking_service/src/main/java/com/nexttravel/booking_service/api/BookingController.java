@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class BookingController {
     private final BookingService bookingService;
+
     @GetMapping("/get/onGoingBookingId")
-    public ResponseEntity<?> getOngoingPaymentId(){
+    public ResponseEntity<?> getOngoingPaymentId() {
 
         String ongoingBookingId = bookingService.getOngoingBookingId();
         System.out.println("Ongoing booking id: " + ongoingBookingId);
@@ -23,7 +24,8 @@ public class BookingController {
     }
 
     @GetMapping
-    public void get(){
+    public ResponseEntity<?> get() {
         System.out.println("This is a test controller");
+        return ResponseEntity.ok("This is a test controller");
     }
 }

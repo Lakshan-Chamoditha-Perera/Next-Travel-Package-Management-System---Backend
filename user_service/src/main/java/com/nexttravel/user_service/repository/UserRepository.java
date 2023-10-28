@@ -16,7 +16,8 @@ public interface UserRepository extends CrudRepository<User, String> {
 
     Boolean existsUserByUsername(String username);
 
-    Boolean existsByEmail(String email);
+
+    Boolean existsUserByEmail(String email);
 
     @Query(value = "{}", sort = "{user_id : -1}", fields = "{user_id : 1}")
     List<User> findLastInsertedUser();

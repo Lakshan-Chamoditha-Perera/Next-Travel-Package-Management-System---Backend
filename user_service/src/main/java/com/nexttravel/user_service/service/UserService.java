@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface UserService {
     Boolean existsUserByUsername(String username);
+    Boolean existsUserByEmail(String email);
     String getOngoingUserID();
     Boolean save (UserDto userDto);
     Boolean deleteByUsername (String username);

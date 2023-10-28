@@ -19,10 +19,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> register(
-            @RequestPart("nic_front") byte[] nic_front,
-            @RequestPart("nic_back") byte[] nic_back,
-            @RequestPart("user") UserDto userDto) {
+    public ResponseEntity<?> register(@RequestPart("nic_front") byte[] nic_front, @RequestPart("nic_back") byte[] nic_back, @RequestPart("user") UserDto userDto) {
         System.out.println("register");
         try {
 //            userDto.setRole("ROLE_USER");
@@ -87,10 +84,19 @@ if (!Pattern.compile("^U\\d{3,}$").matcher(userDTO.getUser_id()).matches())
 */
 
     @GetMapping("/check/{username}")
-    public ResponseEntity<?> checkUsername(@PathVariable String username) {
+    public MessageResponse checkUsername(@PathVariable String username) {
+        System.out.println("check username: " + username);
         Boolean existsUserByUsername = userService.existsUserByUsername(username);
-        if (!existsUserByUsername) return ResponseEntity.ok(true);
-        return ResponseEntity.badRequest().body(new MessageResponse("Username already exists", null));
+        if (existsUserByUsername) return new MessageResponse("User already available", Boolean.TRUE);
+        return new MessageResponse("User not available", Boolean.FALSE);
+    }
+
+    @GetMapping("/checkByEmail/{email}")
+    public MessageResponse checkUserEmail(@PathVariable String email) {
+        System.out.println("check email: " + email);
+        Boolean existsUserByUsername = userService.existsUserByEmail(email);
+        if (existsUserByUsername) return new MessageResponse("User email already available", Boolean.TRUE);
+        return new MessageResponse("User email not available", Boolean.FALSE);
     }
 
     @GetMapping("/getnewid")

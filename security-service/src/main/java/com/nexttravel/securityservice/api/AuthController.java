@@ -5,6 +5,7 @@ import com.nexttravel.securityservice.payload.LoginRequest;
 import com.nexttravel.securityservice.payload.responses.JwtResponse;
 import com.nexttravel.securityservice.payload.responses.MessageResponse;
 import com.nexttravel.securityservice.repo.UserRepository;
+import com.nexttravel.securityservice.service.AuthService;
 import com.nexttravel.securityservice.util.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,15 +27,15 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
 
+    private final AuthService authService;
+
     @PostMapping("/auth/register")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
-
-        if (userRepository.existsByUsername(user.getUsername())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("User is already taken!"));
+    public MessageResponse registerUser(@RequestBody User user) {
+        if (authService.isUserExists(user.getUsername())) {
+            return new MessageResponse("User is already taken!",   true);
         }
-
         if (userRepository.existsByEmail(user.getEmail())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Email is already taken!"));
+            return new MessageResponse("Email is already taken!", true);
         }
 
         User newUser = new User();
@@ -45,7 +46,7 @@ public class AuthController {
 
         userRepository.save(newUser);
 
-        return ResponseEntity.ok(new MessageResponse("User created successfully!"));
+        return new MessageResponse("User created successfully!", null);
     }
 
     @PostMapping("/auth/login")
