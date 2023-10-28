@@ -16,7 +16,14 @@ public class BookingController {
     private final BookingService bookingService;
     @GetMapping("/get/onGoingBookingId")
     public ResponseEntity<?> getOngoingPaymentId(){
+
         String ongoingBookingId = bookingService.getOngoingBookingId();
+        System.out.println("Ongoing booking id: " + ongoingBookingId);
         return ResponseEntity.ok(ongoingBookingId);
+    }
+
+    @GetMapping
+    public void get(){
+        System.out.println("This is a test controller");
     }
 }

@@ -66,4 +66,8 @@ public class AuthController {
                 )
         );
     }
+    @GetMapping("/auth/validate")
+    public Boolean validateToken(@RequestParam("token") String token) {
+        return jwtUtils.validateJwtToken(token);
+    }
 }
