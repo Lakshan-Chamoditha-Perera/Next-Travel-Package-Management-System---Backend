@@ -3,20 +3,17 @@ package com.nexttravel.securityservice.service.custom;
 import com.nexttravel.securityservice.dto.UserDto;
 import com.nexttravel.securityservice.payload.responses.MessageResponse;
 import com.nexttravel.securityservice.service.AuthService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.Optional;
-
 @Service
+@RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    ModelMapper modelMapper;
     @Value("${user-service-url}")
     private String USER_SERVICE_URL;
 
@@ -25,6 +22,14 @@ public class AuthServiceImpl implements AuthService {
         WebClient webClient = WebClient.create(USER_SERVICE_URL + "/check/" + username);
         MessageResponse response = webClient.get().retrieve().bodyToMono(MessageResponse.class).block();
         System.out.println("Auth service : isUserExists() -> " + response.getMessage());
+        return (Boolean) response.getData();
+    }
+
+    @Override
+    public Boolean isUserExistsByEmail(String email) {
+        WebClient webClient = WebClient.create(USER_SERVICE_URL + "/checkByEmail/" + email);
+        MessageResponse response = webClient.get().retrieve().bodyToMono(MessageResponse.class).block();
+        System.out.println("Auth service : isUserExistsByEmail() -> " + response.getMessage());
         return (Boolean) response.getData();
     }
 

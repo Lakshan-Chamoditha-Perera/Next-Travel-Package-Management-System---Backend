@@ -47,11 +47,16 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf(AbstractHttpConfigurer::disable)
+        System.out.println("Security filterChain");
+        httpSecurity.cors(cors -> cors.disable()).csrf(csrf-> csrf.disable())
                 .exceptionHandling(ex-> ex.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth->
-                        auth.requestMatchers("/auth/***").permitAll()//add all the end points that is needed to auth
+                        auth.requestMatchers(
+                                "/auth/register",
+                                        "/auth/login"
+                                )
+                                .permitAll() //add all the end points that is needed to auth
                                 .anyRequest().authenticated()
                 );
         httpSecurity.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);

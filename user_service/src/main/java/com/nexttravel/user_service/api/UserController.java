@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 @RestController
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:6342")
 public class UserController {
     private final UserService userService;
 

@@ -1,23 +1,23 @@
 package com.example.apigateway.filter;
 
-import com.example.apigateway.config.AppConfig;
 import com.example.apigateway.util.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.client.RestTemplate;
 
 @Component
+@CrossOrigin(origins="http://localhost:63342")
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
+    @Autowired
+    JwtUtils jwtUtils;
     @Autowired
     private RouteValidator routeValidator;
     @Autowired
     private RestTemplate template;
-
-    @Autowired
-    JwtUtils jwtUtils;
 
     public AuthenticationFilter() {
         super(Config.class);
@@ -25,9 +25,11 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 
     @Override
     public GatewayFilter apply(Config config) {
+        System.out.println("apply");
         return ((exchange, chain) -> {
             if (routeValidator.isSecured.test(exchange.getRequest())) {
-//              header contains token or not
+
+                //header contains token or not
                 if (!exchange.getRequest().getHeaders().containsKey("Authorization")) {
                     throw new RuntimeException("Authorization header is missing");
                 }
@@ -55,6 +57,5 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     }
 
     public static class Config {
-
     }
 }
