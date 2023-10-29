@@ -11,4 +11,5 @@ public class UserJwtResponse {
     private String jwt;
     private String username;
     private String email;
+    private String role;
 }

@@ -1,6 +1,7 @@
-package com.nexttravel.securityservice.service;
+package com.nexttravel.securityservice.service.custom;
 
 import com.nexttravel.securityservice.dto.UserDto;
+import com.nexttravel.securityservice.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

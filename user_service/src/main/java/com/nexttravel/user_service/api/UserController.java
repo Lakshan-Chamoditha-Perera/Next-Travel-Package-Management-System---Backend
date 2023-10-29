@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 @RestController
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:6342")
+@CrossOrigin(origins = "*")
 public class UserController {
     private final UserService userService;
 
@@ -36,6 +36,7 @@ public class UserController {
     @PostMapping(value = "/register")
     public ResponseEntity<?> register(@RequestBody UserDto userDto) {
         System.out.println("register");
+        System.out.println(userDto);
         userDto.setUser_id(userService.getOngoingUserID());
         return userService.save(userDto) ? ResponseEntity.ok().body(new MessageResponse("User registration successful", null)) : ResponseEntity.badRequest().body(new MessageResponse("User registration failed", null));
     }
@@ -114,12 +115,14 @@ public class UserController {
 
     @GetMapping("/get/{username}")
     public MessageResponse getUserByUsername(@PathVariable String username) {
+        System.out.println("get user by username: " + username);
         if (!Pattern.compile("^([a-zA-Z]+( [a-zA-Z]+)*)$").matcher(username).matches()) {
             System.out.println("invalid username");
             return new MessageResponse("Invalid  username type!", null);
         }
         Boolean existsUserByUsername = userService.existsUserByUsername(username);
         if (existsUserByUsername) {
+            System.out.println("user found");
             return new MessageResponse("exists",userService.getUserByUsername(username));
         }
         return new MessageResponse("User not found", null);

@@ -44,11 +44,15 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserDto findByUsername(String username) {
+
+        System.out.println("Auth service : findByUsername() -> " + username);
+
         WebClient webClient = WebClient.create(USER_SERVICE_URL + "/get/" + username);
+        System.out.println("Auth service : findByUsername() -> web client created" );
         MessageResponse response = webClient.get().retrieve().bodyToMono(MessageResponse.class).block();
+        System.out.println(response);
         if (response.getData() != null) {
             System.out.println("Auth service : findByUsername() -> " + response.getData());
-//     map response.data to UserDto
             UserDto userDto = modelMapper.map(response.getData(), UserDto.class);
             return userDto;
         }

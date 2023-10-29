@@ -22,6 +22,7 @@ public class AuthController {
     private final JwtUtils jwtUtils;
 
     private final AuthService authService;
+
     @PostMapping("/auth/register")
     public MessageResponse registerUser(@RequestBody UserDto userDto) {
         System.out.println("/auth/register");
@@ -31,6 +32,7 @@ public class AuthController {
         if (authService.isUserExistsByEmail(userDto.getEmail())) {
             return new MessageResponse("Email is already taken!", false);
         }
+        userDto.setRole("ROLE_USER");
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         authService.save(userDto);
         return new MessageResponse("User created successfully!", true);
@@ -38,19 +40,26 @@ public class AuthController {
 
     @PostMapping("/auth/login")
     public MessageResponse login(@RequestBody LoginRequest request) {
+        System.out.println("/auth/login -> : " + request);
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
-
         if (!authService.isUserExists(request.getUsername())) {
-            return new MessageResponse("User not found", null);
+            return new MessageResponse("User not found", false);
         }
         try {
             UserDto user = authService.findByUsername(request.getUsername());
-            System.out.println("Token created...");
-            return new MessageResponse("Login successful", new JwtResponse(jwt, user.getUser_id(), user.getUsername(), user.getEmail()));
+            if(passwordEncoder.matches(request.getPassword(), user.getPassword())){
+                System.out.println("Password matched...");
+                System.out.println("User found... ->"+user.getUsername()+" : "+user.getPassword() );
+                System.out.println("Token created...");
+                return new MessageResponse("Login successful", new JwtResponse(jwt, user.getUser_id(), user.getUsername(), user.getEmail(),user.getRole()));
+            }
+            System.out.println("Password not matched...");
+            return new MessageResponse("Password not matched", false);
+
         } catch (RuntimeException e) {
-            return new MessageResponse(e.getMessage(), null);
+            return new MessageResponse(e.getMessage(), false);
         }
     }
 

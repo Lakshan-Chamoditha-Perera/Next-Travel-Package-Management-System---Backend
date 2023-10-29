@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
         user.setContact_number(userDto.getContact_number());
         user.setRemark(userDto.getRemark());
         user.setPassword(userDto.getPassword());
-//        user.setRole(userDto.getRole());
+        user.setRole(userDto.getRole());
         user.setNic_front(userDto.getNic_front());
         user.setNic_back(userDto.getNic_back());
 
