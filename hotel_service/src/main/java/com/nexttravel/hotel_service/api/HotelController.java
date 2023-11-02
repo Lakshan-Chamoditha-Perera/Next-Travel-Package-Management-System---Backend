@@ -3,6 +3,7 @@ package com.nexttravel.hotel_service.api;
 import com.nexttravel.hotel_service.dto.HotelDto;
 import com.nexttravel.hotel_service.service.HotelService;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

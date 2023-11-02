@@ -13,4 +13,6 @@ public interface VehicleService {
     List<VehicleDto> getAllVehicles();
     VehicleDto getVehicleByVehicleId(String vehicle_id);
     String getOngoingUserID();
+
+    List<VehicleDto> getAllVehiclesByCategory(String category);
 }

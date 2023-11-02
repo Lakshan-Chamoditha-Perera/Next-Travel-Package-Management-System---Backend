@@ -25,7 +25,6 @@ public class User {
     private String role;
     private byte[] nic_front;
     private byte[] nic_back;
-
     @CreatedDate
     private LocalDateTime createdTime;
     @LastModifiedDate

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="nextTravel@localhost" uuid="1eebc904-505b-401b-b3eb-db5292fc0c45">
+    <data-source source="LOCAL" name="user_db" uuid="1eebc904-505b-401b-b3eb-db5292fc0c45">
       <driver-ref>mongo</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.dbschema.MongoJdbcDriver</jdbc-driver>
       <jdbc-url>mongodb://localhost:27017/nextTravel</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="vehicle_service" uuid="68fde1fc-f204-4bc5-b87b-5b46eddb2b61">
+    <data-source source="LOCAL" name="vehicle_db" uuid="68fde1fc-f204-4bc5-b87b-5b46eddb2b61">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
@@ -22,7 +22,7 @@
       <jdbc-url>mongodb://localhost:27017/next_travel_guide</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="hotel_service" uuid="e30a0295-97fe-402f-9c1c-10731d3e616c">
+    <data-source source="LOCAL" name="hotel_db" uuid="e30a0295-97fe-402f-9c1c-10731d3e616c">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

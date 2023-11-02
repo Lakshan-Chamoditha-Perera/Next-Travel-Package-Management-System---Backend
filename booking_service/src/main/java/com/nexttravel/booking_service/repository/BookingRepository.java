@@ -12,6 +12,7 @@ import java.util.List;
 @EnableMongoRepositories
 public interface BookingRepository extends MongoRepository<Booking, String> {
 
+    boolean existsById(String id);
     @Query(value = "{}", sort = "{id: -1}", fields = "{id: 1}")
     List<Booking> getLastBookingId();
 }

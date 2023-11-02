@@ -110,4 +110,24 @@ public class VehicleServiceImpl implements VehicleService {
         return (String.format("V%05d", lastDigits));
     }
 
+    @Override
+    public List<VehicleDto> getAllVehiclesByCategory(String category) {
+        List<Vehicle> allByCategory = vehicleRepository.findAllByCategory(category);
+        List<VehicleDto> dtoList = new ArrayList<>();
+        if (allByCategory.size() == 0) return dtoList;
+        for (Vehicle vehicle : allByCategory) {
+            VehicleDto vehicleDto = toVehicleDto(vehicle);
+            Driver driver = vehicle.getDriver();
+            DriverDto driverDto = new DriverDto();
+            driverDto.setId(driver.getId());
+            driverDto.setName(driver.getName());
+            driverDto.setContact_no(driver.getContact_no());
+            driverDto.setLicense_back(driver.getLicense_back());
+            driverDto.setLicense_front(driver.getLicense_front());
+            vehicleDto.setDriver(driverDto);
+            dtoList.add(vehicleDto);
+        }
+        return dtoList;
+    }
+
 }

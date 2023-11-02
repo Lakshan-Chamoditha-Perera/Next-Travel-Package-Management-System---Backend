@@ -1,21 +1,16 @@
-package com.nexttravel.booking_service.entity;
+package com.nexttravel.booking_service.dto;
 
-import jakarta.annotation.security.DenyAll;
+import com.nexttravel.booking_service.entity.OptionDetail;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 import java.util.List;
-
-@Document
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Booking {
-    @Id
+@NoArgsConstructor
+public class BookingDto {
     private String id;
     private String guide_id;
     private String user_id;
@@ -31,7 +26,7 @@ public class Booking {
     private double total_price;
     private String status; //pending, paid, cancelled
     private String remark;;
-    private List<OptionDetail> option_detail_list;
+    private List<OptionDetailDto> option_detail_list;
     private List<String> vehicle_list;
     private String category;
 }
