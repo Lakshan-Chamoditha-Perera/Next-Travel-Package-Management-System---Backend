@@ -13,4 +13,6 @@ public interface DriverRepository extends JpaRepository<Driver, String> {
     Driver getDriverById(String driver_id);
     @Query("SELECT MAX (d.id) FROM Driver d")
     String findLastId();
+
+
 }

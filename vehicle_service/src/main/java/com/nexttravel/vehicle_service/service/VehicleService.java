@@ -15,4 +15,6 @@ public interface VehicleService {
     String getOngoingUserID();
 
     List<VehicleDto> getAllVehiclesByCategory(String category);
+
+    boolean updateAvailabilityById(String vehicle_id,String availability);
 }

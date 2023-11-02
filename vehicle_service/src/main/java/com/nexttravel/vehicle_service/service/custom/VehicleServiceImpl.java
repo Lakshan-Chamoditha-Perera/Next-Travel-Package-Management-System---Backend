@@ -130,4 +130,10 @@ public class VehicleServiceImpl implements VehicleService {
         return dtoList;
     }
 
+    @Override
+    public boolean updateAvailabilityById(String vehicle_id, String availability) {
+        vehicleRepository.updateAvailabilityById(vehicle_id, availability);
+        return true;
+    }
+
 }

@@ -1,12 +1,16 @@
 package com.nexttravel.vehicle_service.controller;
 
 import com.nexttravel.vehicle_service.dto.VehicleDto;
+import com.nexttravel.vehicle_service.payload.StandardMessageResponse;
+import com.nexttravel.vehicle_service.repository.VehicleRepository;
 import com.nexttravel.vehicle_service.service.DriverService;
 import com.nexttravel.vehicle_service.service.VehicleService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,16 +23,10 @@ import java.util.regex.Pattern;
 public class VehicleController {
     private final VehicleService vehicleService;
     private final DriverService driverService;
+    private final VehicleRepository vehicleRepository;
 
     @PostMapping(value = "/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> register(
-            @RequestPart("vehicle_img1") byte[] vehicle_img1,
-            @RequestPart("vehicle_img2") byte[] vehicle_img2,
-            @RequestPart("vehicle_img3") byte[] vehicle_img3,
-            @RequestPart("vehicle_img4") byte[] vehicle_img4,
-            @RequestPart("vehicle_img5") byte[] vehicle_img5,
-            @RequestPart("vehicle") VehicleDto vehicleDto,
-            @RequestPart("driver_id") String driver_id) {
+    public ResponseEntity<?> register(@RequestPart("vehicle_img1") byte[] vehicle_img1, @RequestPart("vehicle_img2") byte[] vehicle_img2, @RequestPart("vehicle_img3") byte[] vehicle_img3, @RequestPart("vehicle_img4") byte[] vehicle_img4, @RequestPart("vehicle_img5") byte[] vehicle_img5, @RequestPart("vehicle") VehicleDto vehicleDto, @RequestPart("driver_id") String driver_id) {
         System.out.println("VehicleController -> " + vehicleDto);
 
         vehicleDto.getImageList().add(vehicle_img1);
@@ -128,15 +126,8 @@ public class VehicleController {
         return ResponseEntity.ok(lastVehicleId);
     }
 
-    @PatchMapping(value = "/update" , consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> updateVehicle(
-            @RequestPart("vehicle_img1") byte[] vehicle_img1,
-            @RequestPart("vehicle_img2") byte[] vehicle_img2,
-            @RequestPart("vehicle_img3") byte[] vehicle_img3,
-            @RequestPart("vehicle_img4") byte[] vehicle_img4,
-            @RequestPart("vehicle_img5") byte[] vehicle_img5,
-            @RequestPart("vehicle") VehicleDto vehicleDto,
-            @RequestPart("driver_id") String driver_id) {
+    @PatchMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> updateVehicle(@RequestPart("vehicle_img1") byte[] vehicle_img1, @RequestPart("vehicle_img2") byte[] vehicle_img2, @RequestPart("vehicle_img3") byte[] vehicle_img3, @RequestPart("vehicle_img4") byte[] vehicle_img4, @RequestPart("vehicle_img5") byte[] vehicle_img5, @RequestPart("vehicle") VehicleDto vehicleDto, @RequestPart("driver_id") String driver_id) {
         System.out.println("Patch -> " + vehicleDto);
         vehicleDto.getImageList().add(vehicle_img1);
         vehicleDto.getImageList().add(vehicle_img2);
@@ -159,6 +150,21 @@ public class VehicleController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
+    }
+
+    @PatchMapping(value = "/update_availability")
+    public StandardMessageResponse method(@RequestHeader String vehicle_id, @RequestHeader String availability) {
+        if (!Pattern.compile("^V\\d{3,}$").matcher(vehicle_id).matches()) {
+            return new StandardMessageResponse("Failed", "invalid vehicle id");
+        }
+        if (!Pattern.compile("^(available|not-available)$").matcher(availability).matches()) {
+            return new StandardMessageResponse("Failed", "invalid availability");
+        }
+        if (!vehicleService.existsVehicleByVehicleId(vehicle_id)) {
+            return new StandardMessageResponse("Failed", "vehicle not found");
+        }
+        vehicleService.updateAvailabilityById(vehicle_id, availability);
+        return new StandardMessageResponse("Success", "Availability updated successfully");
     }
 
 }

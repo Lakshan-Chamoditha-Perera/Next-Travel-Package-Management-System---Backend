@@ -6,4 +6,5 @@ public interface BookingService {
     String save(BookingDto bookingDto);
     boolean existsByBookingId(String bookingId);
     String getOngoingBookingId();
+    int getCountByUserAndStatus(String user_id,String status);
 }

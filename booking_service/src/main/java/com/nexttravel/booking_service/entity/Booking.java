@@ -1,6 +1,5 @@
 package com.nexttravel.booking_service.entity;
 
-import jakarta.annotation.security.DenyAll;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +17,7 @@ public class Booking {
     @Id
     private String id;
     private String guide_id;
-    private String user_id;
+    private String user;
     private Date starting_date;
     private Date ending_date;
     private Date booked_date;
