@@ -13,6 +13,6 @@ public class Payment {
     private String id;
     private String booking_id;
     private double amount;
-    private Byte [] receipt;
+    private byte [] receipt;
     private Date payment_date;
 }
