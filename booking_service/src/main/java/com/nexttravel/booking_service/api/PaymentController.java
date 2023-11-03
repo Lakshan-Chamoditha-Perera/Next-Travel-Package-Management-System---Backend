@@ -47,7 +47,6 @@ public class PaymentController {
                 return new StandardMessageResponse("Failed", "Payment already exists");
             }
         } catch (RuntimeException e) {
-            e.printStackTrace();
             return new StandardMessageResponse("Failed", e.getMessage());
         }
         return new StandardMessageResponse("Failed", "Something went wrong");

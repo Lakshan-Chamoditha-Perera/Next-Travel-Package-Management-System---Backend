@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 @RestController
 @RequestMapping("api/v1/hotel")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class HotelController {
     private final HotelService hotelService;
 
