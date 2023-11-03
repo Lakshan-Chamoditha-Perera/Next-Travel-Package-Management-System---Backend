@@ -85,7 +85,18 @@ public class BookingController {
 
 
     @GetMapping("/get/bookingCount")
-    public StandardMessageResponse bookingCount(@RequestHeader String user_id,@RequestHeader String status) {
-        return  new StandardMessageResponse("success", bookingService.getCountByUserAndStatus(user_id,status));
+    public StandardMessageResponse bookingCount(@RequestHeader String user_id, @RequestHeader String status) {
+        return new StandardMessageResponse("success", bookingService.getCountByUserAndStatus(user_id, status));
+    }
+
+    @GetMapping("/get")
+    public StandardMessageResponse getBookingById(@RequestHeader String id) {
+        if (!Pattern.compile("^B\\d{3,}$").matcher(id).matches())
+            return new StandardMessageResponse("error", "invalid booking id type");
+        if (!bookingService.existsByBookingId(id)) {
+            return new StandardMessageResponse("error", "Booking not found!");
+        }
+        BookingDto bookingDto = bookingService.getBookingbyId(id);
+        return new StandardMessageResponse("success", bookingDto);
     }
 }

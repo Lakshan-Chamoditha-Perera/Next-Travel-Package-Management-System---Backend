@@ -7,4 +7,6 @@ public interface BookingService {
     boolean existsByBookingId(String bookingId);
     String getOngoingBookingId();
     int getCountByUserAndStatus(String user_id,String status);
+
+    BookingDto getBookingbyId(String id);
 }

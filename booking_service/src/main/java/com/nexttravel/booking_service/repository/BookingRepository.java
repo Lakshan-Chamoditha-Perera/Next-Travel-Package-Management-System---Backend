@@ -16,4 +16,6 @@ public interface BookingRepository extends MongoRepository<Booking, String> {
     @Query(value = "{}", sort = "{id: -1}", fields = "{id: 1}")
     List<Booking> getLastBookingId();
     List<Booking> findAllByUserAndStatus(String user, String status);
+
+    Booking getBookingById(String id);
 }

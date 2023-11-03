@@ -71,4 +71,10 @@ public class BookingServiceImpl implements BookingService {
         List<Booking> allByUserAndStatus = bookingRepository.findAllByUserAndStatus(user_id, status);
         return (allByUserAndStatus != null) ? allByUserAndStatus.size() : 0;
     }
+
+    @Override
+    public BookingDto getBookingbyId(String id) {
+        Booking bookingById = bookingRepository.getBookingById(id);
+        return modelMapper.map(bookingById,BookingDto.class);
+    }
 }
