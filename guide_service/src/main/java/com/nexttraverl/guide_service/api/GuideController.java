@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 @RequestMapping("api/v1/guide")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
-public class GuideController {
+public class    GuideController {
     public final GuideService guideService;
 
     @PostMapping(value = "/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
