@@ -30,8 +30,6 @@ public class BookingController {
     }
 
 
-
-
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     public StandardMessageResponse save(@RequestBody BookingDto booking) {
         System.out.println(booking);
