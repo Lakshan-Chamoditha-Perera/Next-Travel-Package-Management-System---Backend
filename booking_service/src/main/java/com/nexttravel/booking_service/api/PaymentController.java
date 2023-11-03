@@ -2,6 +2,7 @@ package com.nexttravel.booking_service.api;
 
 
 import com.nexttravel.booking_service.payload.response.StandardMessageResponse;
+import com.nexttravel.booking_service.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PaymentController {
-    @GetMapping("/get/ongingPaymentId")
+    private final PaymentService paymentService;
+    @GetMapping("/get/onGoingPaymentId")
     public StandardMessageResponse getOngoingPaymentId() {
-        return new StandardMessageResponse("Success", "P001");
+        String ongoingPaymentId = paymentService.getOngoingPaymentId();
+        return new StandardMessageResponse("Success", ongoingPaymentId);
     }
 }
