@@ -11,6 +11,7 @@
         <module name="hotel_service" />
         <module name="discovery" />
         <module name="security-service" />
+        <module name="email-service" />
         <module name="api-gateway" />
         <module name="vehicle_service" />
         <module name="guide_service" />
@@ -36,6 +37,7 @@
       <module name="Service_Dispatcher" options="-parameters" />
       <module name="api-gateway" options="-parameters" />
       <module name="discovery" options="-parameters" />
+      <module name="email-service" options="-parameters" />
       <module name="guide_service" options="-parameters" />
       <module name="hotel_service" options="-parameters" />
       <module name="security-service" options="-parameters" />

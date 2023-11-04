@@ -99,4 +99,12 @@ public class BookingController {
         BookingDto bookingDto = bookingService.getBookingbyId(id);
         return new StandardMessageResponse("success", bookingDto);
     }
+
+    @GetMapping("/get_by_user")
+    public StandardMessageResponse getBookingByUser(@RequestHeader String user_id) {
+        if (!Pattern.compile("^U\\d{3,}$").matcher(user_id).matches())
+            return new StandardMessageResponse("error", "invalid user id type");
+        List<BookingDto> bookingByUser = bookingService.getBookingByUser(user_id);
+        return new StandardMessageResponse("success", bookingByUser);
+    }
 }

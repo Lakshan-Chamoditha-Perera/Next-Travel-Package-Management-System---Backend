@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.regex.Pattern;
 
 @RestController
-@RequestMapping("api/v1/driver")
-@CrossOrigin(origins = "*")
+@RequestMapping("api/v1/vehicle/driver")
 @RequiredArgsConstructor
 public class DriverController {
     private final DriverService driverService;

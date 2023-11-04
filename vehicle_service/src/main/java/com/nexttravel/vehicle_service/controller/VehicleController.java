@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 @RestController
 @RequestMapping("/api/v1/vehicle")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 public class VehicleController {
     private final VehicleService vehicleService;
     private final DriverService driverService;
@@ -122,6 +122,7 @@ public class VehicleController {
 
     @GetMapping("/get/lastId")
     public ResponseEntity<?> getOngoingUserID() {
+        System.out.println("VehicleController -> getOngoingUserID");
         String lastVehicleId = vehicleService.getOngoingUserID();
         return ResponseEntity.ok(lastVehicleId);
     }

@@ -77,4 +77,12 @@ public class BookingServiceImpl implements BookingService {
         Booking bookingById = bookingRepository.getBookingById(id);
         return modelMapper.map(bookingById,BookingDto.class);
     }
+
+    @Override
+    public List<BookingDto> getBookingByUser(String user_id) {
+        List<Booking> allByUser = bookingRepository.findAllByUser(user_id);
+        return allByUser.stream()
+                .map(booking ->
+                        modelMapper.map(booking,BookingDto.class)).toList();
+    }
 }
