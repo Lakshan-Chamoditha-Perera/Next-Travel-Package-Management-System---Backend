@@ -65,7 +65,6 @@ public class PaymentController {
         if (paymentDto.getReceipt() == null && paymentDto.getReceipt().length == 0) {
             throw new RuntimeException("Invalid receipt");
         }
-        System.out.println("Validated");
         return true;
     }
 }

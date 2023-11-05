@@ -25,30 +25,22 @@ public class    GuideController {
             @RequestPart("guide_id_back") byte[] guide_id_back,
             @RequestPart("profile") byte[] guide_img,
             @RequestPart("guide") GuideDTO guide) {
-
-        System.out.println("GuideController -> " + guide);
-
         guide.getImages_list().add(guide_img);
         guide.getImages_list().add(nic_front);
         guide.getImages_list().add(nic_back);
         guide.getImages_list().add(guide_id_front);
         guide.getImages_list().add(guide_id_back);
-        System.out.println("GuideController -> " + guide);
         try {
             validateGuideDetails(guide);
-            System.out.println("validated");
             if (guideService.existsByGuideId(guide.getId())) {
-
-                System.out.println("exists");
                 return ResponseEntity.badRequest().body("Guide already exists!");
             }
             guideService.save(guide);
             return ResponseEntity.ok().build();
         } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
+//            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-
     }
 
     private void validateGuideDetails(GuideDTO guide) {
@@ -78,9 +70,7 @@ public class    GuideController {
 
     @GetMapping("/get/lastId")
     public ResponseEntity<?> getOngoingUserID() {
-        System.out.println("get last id");
-        String guideId = guideService.getOnGoingGuideId();
-        return ResponseEntity.ok(guideId);
+        return ResponseEntity.ok(guideService.getOnGoingGuideId());
     }
 
     @GetMapping("/getAll")
@@ -91,7 +81,6 @@ public class    GuideController {
         if (allGuides.size() == 0) return ResponseEntity.ok().body("");
         System.out.println("done");
         return ResponseEntity.ok().body(allGuides);
-
     }
 
     @PatchMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

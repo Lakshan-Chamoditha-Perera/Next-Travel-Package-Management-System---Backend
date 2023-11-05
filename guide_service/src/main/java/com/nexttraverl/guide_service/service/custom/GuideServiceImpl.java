@@ -23,11 +23,9 @@ public class GuideServiceImpl implements GuideService {
         guideDTO.getImages_list().forEach(ele -> {
             guide.getImages_list().add(ele);
         });
-        System.out.println("Guide -> " + guide);
         guideRepository.save(guide);
         return true;
     }
-
 
     @Override
     public boolean existsByGuideId(String guide_id) {
@@ -56,12 +54,9 @@ public class GuideServiceImpl implements GuideService {
     @Override
     public String getOnGoingGuideId() {
         List<Guide> lastInsertedUser = guideRepository.getLastGuideId();
-//        System.out.println(lastInsertedUser);
         if (lastInsertedUser.isEmpty()) return "G00001";
-//        System.out.println("last user id: " + lastInsertedUser.get(0).getUser_id());
         String lastId = lastInsertedUser.get(0).getId();
         String[] split = lastId.split("[G]");
-//        System.out.println("split: " + split[1]);
         int lastDigits = Integer.parseInt(split[1]);
         lastDigits++;
         return (String.format("G%05d", lastDigits));
