@@ -60,6 +60,7 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
             <version>3.1.5</version>
         </dependency>
+
     </dependencies>
 
     <dependencyManagement>

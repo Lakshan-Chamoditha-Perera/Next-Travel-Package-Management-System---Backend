@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 public class UserController {
     private final UserService userService;
 
+
  /*   @PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> register(@RequestPart("nic_front") byte[] nic_front, @RequestPart("nic_back") byte[] nic_back, @RequestPart("user") UserDto userDto) {
         System.out.println("register");

@@ -3,11 +3,14 @@ package com.nexttravel.user_service.service.custom;
 
 import com.nexttravel.user_service.dto.UserDto;
 import com.nexttravel.user_service.entity.User;
+import com.nexttravel.user_service.payload.responses.MessageResponse;
 import com.nexttravel.user_service.repository.UserRepository;
 import com.nexttravel.user_service.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +20,8 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    @Value("${mail-service-url}")
+    private String MAIL_SERVER_URL;
 
     @Override
     public Boolean existsUserByUsername(String username) {
@@ -84,6 +89,10 @@ public class UserServiceImpl implements UserService {
         user.setNic_back(userDto.getNic_back());
 
         userRepository.save(user);
+
+//        WebClient client = WebClient.create( MAIL_SERVER_URL+ "/email/send/welcome");
+//        client.patch().header("mail", user.getEmail()).retrieve().bodyToMono(MessageResponse.class).block();
+
         return true;
     }
 

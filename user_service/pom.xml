@@ -64,7 +64,14 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
             <version>3.1.5</version>
         </dependency>
-       </dependencies>
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-webflux -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webflux</artifactId>
+            <version>6.0.8</version>
+        </dependency>
+
+    </dependencies>
 
     <build>
         <plugins>
