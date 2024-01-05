@@ -22,6 +22,9 @@ The Next Travel Pvt Ltd system is a comprehensive travel planning application de
     - Eureka Service Registry
     - Security Service
 
+![Alt Text](img.png)
+
+
 - **Functionality Highlights:**
     - Validation on client and server-side.
     - Payment slip upload, ID card upload, and email notifications.
@@ -189,3 +192,8 @@ The adoption of Spring Web Flux empowers the Next Travel Pvt Ltd system with rea
 2. **Clone the Repository:**
    ```bash
    git clone  https://github.com/Lakshan-Chamoditha-Perera/Next-Travel-Package-Management-System---Backend.git
+
+
+## Project class hierarchy
+
+![Alt Text](project_hierarchy.png)
